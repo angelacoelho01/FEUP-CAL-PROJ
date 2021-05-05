@@ -1,6 +1,9 @@
+#include "util/Time.h"
+
 #include <iostream>
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Time time(25, 30);
+    std::cout << time.getTime() << std::endl;
     return 0;
 }
