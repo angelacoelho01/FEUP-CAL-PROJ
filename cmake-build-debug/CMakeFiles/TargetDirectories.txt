@@ -1,3 +1,0 @@
-/home/angela/Desktop/MIEIC/CAL/FEUP-CAL-PROJ/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/angela/Desktop/MIEIC/CAL/FEUP-CAL-PROJ/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/angela/Desktop/MIEIC/CAL/FEUP-CAL-PROJ/cmake-build-debug/CMakeFiles/src.dir
