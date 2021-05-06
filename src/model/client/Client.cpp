@@ -1,16 +1,16 @@
 #include "Client.h"
 
 
-Client::Client(std::string name, int phoneNumber, std::string idNumber) :
+Client::Client(std::string& name, int phoneNumber, std::string& idNumber) :
             _name(name), _phoneNumber(phoneNumber), _idNumber(idNumber){
 }
 
-std::string Client::getName() { return _name; }
+std::string Client::getName() const { return _name; }
 
-std::string Client::getIdNumber() { return _idNumber; }
+std::string Client::getIdNumber() const { return _idNumber; }
 
-int Client::getPhoneNumber() { return _phoneNumber; }
+int Client::getPhoneNumber() const { return _phoneNumber; }
 
-void Client::changePhoneNumber(int phoneNumber) { this->_phoneNumber= phoneNumber; }
+void Client::changePhoneNumber(int const phoneNumber) { this->_phoneNumber= phoneNumber; }
 
 

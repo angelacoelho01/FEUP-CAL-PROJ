@@ -13,7 +13,7 @@
 
 class Order {
 public:
-    Order(std::string& address, Client& client, const int quantity, const Time preferredTime) ;
+    Order(std::string& address, Client& client, int quantity, Time preferredTime) ;
 
     std::string getAddress() const;
     Client getClient() const;
@@ -22,8 +22,8 @@ public:
 
     void setAddress(const std::string& address);
     void setClient(const Client& client);
-    void setQuantity(const int quantity);
-    void setPreferredHour(const Time preferredTime);
+    void setQuantity(int quantity);
+    void setPreferredHour(Time preferredTime);
 
     friend std::ostream& operator<<(std::ostream& os, const Order& order);
 private:
