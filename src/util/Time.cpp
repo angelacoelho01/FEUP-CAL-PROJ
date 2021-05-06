@@ -1,9 +1,11 @@
 #include "Time.h"
 
 #include <iomanip>
+#include <iostream>
+
 #include "../model/exception/Time_Exception.h"
 
-Time::Time() : _time{0, 0, 0} {
+Time::Time() : _time{0, 0, 0, 1, 1} {
     time_t t = std::time(nullptr);
     localtime_r(&t, &_time);
 }
@@ -11,6 +13,10 @@ Time::Time() : _time{0, 0, 0} {
 Time::Time(int hour, int minute) : _time() {
     _time.tm_hour = hour;
     _time.tm_min = minute;
+    _time.tm_year = 2021 - 1900;
+    _time.tm_mon = 1;
+    _time.tm_mday = 1;
+    _time.tm_isdst = -1;
     if(!isValid()) throw InvalidTime(getTime());
 }
 
@@ -50,7 +56,7 @@ bool Time::operator<(const Time &time) const {
 }
 
 Time Time::operator+(const Time &time) {
-    this->addMinutes((int) time.getHour());
+    this->addMinutes((int) time.getMinute());
     this->addHours((int) time.getHour());
     return *this;
 }

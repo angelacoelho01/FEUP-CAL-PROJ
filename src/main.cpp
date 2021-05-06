@@ -3,7 +3,8 @@
 #include <iostream>
 
 int main() {
-    Time time(25, 30);
-    std::cout << time.getTime() << std::endl;
+    Time time(23, 30);
+    Time time2(0, 30);
+    std::cout << time + time2 << std::endl;
     return 0;
 }
