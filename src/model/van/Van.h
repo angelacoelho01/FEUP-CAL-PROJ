@@ -1,7 +1,10 @@
 #ifndef SRC_VAN_H
 #define SRC_VAN_H
 
+#include "../order/Order.h"
 #include "../../util/Time.h"
+
+#include <vector>
 
 class Van {
 public:
@@ -9,13 +12,16 @@ public:
 
     int getCapacity() const;
     Time getDeliveryTime() const;
+    std::vector<Order> getOrders() const;
 
-    void setCapacity(const int capacity);
-    void setDeliveryTime(const Time deliveryTime);
+    void setCapacity(int capacity);
+    void setDeliveryTime(Time deliveryTime);
+    void addOrder(const Order& order);
+    void clearOrders();
 private:
     int _capacity;
     Time _deliveryTime;
-    // grafo com as encomendas pelas quais é responsavel
+    std::vector<Order> _orders;
 };
 
 #endif //SRC_VAN_H

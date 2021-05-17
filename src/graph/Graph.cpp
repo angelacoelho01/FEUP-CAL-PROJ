@@ -95,13 +95,34 @@ void Graph::removeUnvisitedVertices() {
     }
 }
 
-// single source algorithms
+// ------------------------------------------------------------
+// ----------------- single source algorithms -----------------
 Vertex* Graph::initSingleSource(const int &origin) {
+    for (auto v : _vertexSet) {
+        v->_visited = false;
+        v->_distance = INF;
+        v->_path = nullptr;
+        v->_pathEdge = Edge();
+    }
 
+    auto s = findVertex(origin);
+    s->_distance = 0;
+    return s;
 }
 
 bool Graph::relax(Vertex* v, Edge edge) {
-
+    Time weight = edge.getWeight();
+    Vertex* w = edge.getDest();
+    /*
+    if (v->distance + weight < w->distance) {
+        w->distance = v->distance + weight;
+        w->path = v;
+        w->pathEdge = edge;
+        return true;
+    }
+    else
+        return false;
+    */
 }
 
 void Graph::dijkstraShortestPath(const int &origin) {
