@@ -1,5 +1,5 @@
-#ifndef SRC_TIME_H
-#define SRC_TIME_H
+#ifndef SRC_UTIL_TIME_H
+#define SRC_UTIL_TIME_H
 
 #include <string>
 #include <ctime>
@@ -29,4 +29,4 @@ private:
 };
 
 
-#endif //SRC_TIME_H
+#endif //SRC_UTIL_TIME_H

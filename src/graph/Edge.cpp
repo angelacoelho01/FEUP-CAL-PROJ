@@ -1,8 +1,5 @@
 #include "Edge.h"
 
-#include "Vertex.h"
-#include "../util/Time.h"
-
 Edge::Edge() : _id(-1), _orig(nullptr), _dest(nullptr), _weight(Time(0, 0)) { }
 
 Edge::Edge(int id, Vertex *orig, Vertex *dest, Time weight)
@@ -23,7 +20,6 @@ Vertex* Edge::getDest() const {
 Time Edge::getWeight() const {
     return this->_weight;
 }
-
 
 void Edge::setId(const int id) {
     this->_id = id;

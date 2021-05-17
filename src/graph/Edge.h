@@ -15,10 +15,10 @@ public:
     Vertex* getDest() const;
     Time getWeight() const;
 
-    void setId(const int id);
+    void setId(int id);
     void setOrig(Vertex* orig);
     void setDest(Vertex* dest);
-    void setWeight(const Time weight);
+    void setWeight(Time weight);
 
     void invertEdge();
 
