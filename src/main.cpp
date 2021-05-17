@@ -1,10 +1,15 @@
 #include "util/Time.h"
 
 #include <iostream>
+#include <algorithm>
+
+#include "map/MapLoader.h"
+
+#include <float.h>
+#include <sstream>
 
 int main() {
-    Time time(23, 30);
-    Time time2(0, 30);
-    std::cout << time + time2 << std::endl;
+    MapLoader mapLoader(1600, 900);
+    mapLoader.loadMap("Coimbra");
     return 0;
 }
