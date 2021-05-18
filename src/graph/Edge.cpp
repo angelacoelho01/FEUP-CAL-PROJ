@@ -1,5 +1,7 @@
 #include "Edge.h"
 
+#include "../util/Utils.h"
+
 Edge::Edge() : _id(-1), _orig(nullptr), _dest(nullptr), _weight(0) { }
 
 Edge::Edge(int id, Vertex *orig, Vertex *dest, double weight)
@@ -41,4 +43,8 @@ void Edge::invertEdge() {
     Vertex * tmp = _dest;
     _dest = _orig;
     _orig = tmp;
+}
+
+double Edge::getDistance() const{
+    return _weight * VAN_SPEED * 1000/3600;
 }

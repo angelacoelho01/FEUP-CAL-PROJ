@@ -39,9 +39,9 @@ private:
     Edge _pathEdge;
 
     // A*
-    double gScore = 0;
-    Vertex* aPath = nullptr;
-    Edge aPathEdge;
+    double _gScore = 0;
+    Vertex* _aPath = nullptr;
+    Edge _aPathEdge;
 
     int queueIndex = 0; // MutablePriorityQueue
 

@@ -21,6 +21,7 @@ public:
     void setWeight(double weight);
 
     void invertEdge();
+    double getDistance() const;
 
     friend class Graph;
     friend class Vertex;

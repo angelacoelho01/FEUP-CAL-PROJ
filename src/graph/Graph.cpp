@@ -1,9 +1,9 @@
 #include "Graph.h"
 
+#include "../util/Utils.h"
+
 #include <iostream>
 #include <unordered_set>
-
-#define VAN_SPEED 50
 
 std::vector<Vertex *> Graph::getVertexSet() const {
     return this->_vertexSet;
@@ -197,25 +197,86 @@ std::vector<int> Graph::getPath(const int origin, const int dest) {
 
 }
 
-// A*
-void Graph::AStar(const int &origin, const int &dest) {
+// ------------------------------------------------------------
+// ---------------------------- A* ----------------------------
+Vertex* Graph::AInitSource(const int &origin) {
+    for(Vertex* v : _vertexSet) {
+        v->_visited = false;
+        v->_distance = INF;
+        v->_gScore = INF;
+        v->_aPath = nullptr;
+        v->_aPathEdge = Edge();
+    }
 
+    Vertex* s = findVertex(origin);
+    s->_distance = 0;
+    s->_gScore = 0;
+    return s;
+}
+
+void Graph::AStar(const int &origin, const int &dest) {
+    Vertex* s = AInitSource(origin);
+    Vertex* t = findVertex(dest);
+    s->_distance = heuristic(s, t);
+
+    MutablePriorityQueue<Vertex> q;
+    q.insert(s);
+    while(!q.empty()){
+        Vertex* current = q.extractMin();
+        if (current == t)
+            break;
+
+        current->_visited = true;
+
+        for (const Edge& e: current->getAdj()) {
+            Vertex* neighbour = e.getDest();
+            if (neighbour->_visited) continue;
+
+            double tmpGScore = current->_gScore + e.getDistance();
+            if (neighbour->_distance == INF)
+                q.insert(neighbour);
+            else if (tmpGScore >= neighbour->_gScore)
+                continue;
+
+            neighbour->_aPath = current;
+            neighbour->_aPathEdge = e;
+            neighbour->_gScore = tmpGScore;
+            neighbour->_distance = neighbour->_gScore + heuristic(neighbour, t);
+            q.decreaseKey(neighbour);
+        }
+    }
 }
 
 double Graph::heuristic(Vertex* current, Vertex * dest) {
-
+    return dest->getPosition().euclideanDistance(current->getPosition());
 }
 
-Vertex* Graph::AInitSingleSource(const int &origin) {
+std::vector<int> Graph::AGetPathVertices(const int origin, const int dest) const {
+    std::vector<int> res;
+    Vertex* s = findVertex(origin);
+    Vertex* t = findVertex(dest);
 
+    if (s == nullptr || t == nullptr || t->getDistance() == INF) // missing or disconnected
+        return res;
+
+    for ( ; t != nullptr; t = t->_aPath)
+        res.push_back(t->getId());
+
+    reverse(res.begin(), res.end());
+    return res;
 }
 
-std::vector<int> Graph::AGetPathVertices(const int origin, const int dest) {
+std::vector<Edge> Graph::AGetPathEdges(const int origin, const int dest) const {
+    std::vector<Edge> res;
+    Vertex* s = findVertex(origin);
+    Vertex* t = findVertex(dest);
 
+    if (s == nullptr || t == nullptr || t->getDistance() == INF) // missing or disconnected
+        return res;
+
+    for ( ; t->getId() != origin; t = t->_aPath)
+        res.push_back(t->_aPathEdge);
+
+    reverse(res.begin(), res.end());
+    return res;
 }
-
-std::vector<Edge> Graph::AGetPathEdges(const int origin, const int dest) {
-
-}
-
-

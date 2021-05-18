@@ -23,17 +23,17 @@ public:
     bool relax(Vertex *v, Edge edge);
     void dijkstraShortestPath(const int &origin);
     void dijkstraShortestPath(const int &origin, const int &dest);
-    std::vector<int> getPathVertices(const int origin, const int dest) const;
-    std::vector<Edge> getPathEdges(const int origin, const int dest) const;
-    std::vector<int> getPath(const int origin, const int dest);
+    std::vector<int> getPathVertices(int origin, int dest) const;
+    std::vector<Edge> getPathEdges(int origin, int dest) const;
+    std::vector<int> getPath(int origin, int dest);
     // --
 
     // A*
+    Vertex* AInitSource(const int &origin);
     void AStar(const int &origin, const int &dest);
     double heuristic(Vertex* current, Vertex* dest);
-    Vertex* AInitSingleSource(const int &origin);
-    std::vector<int> AGetPathVertices(const int origin, const int dest);
-    std::vector<Edge> AGetPathEdges(const int origin, const int dest);
+    std::vector<int> AGetPathVertices(int origin, int dest) const;
+    std::vector<Edge> AGetPathEdges(int origin, int dest) const;
     // --
 
     void reset();
