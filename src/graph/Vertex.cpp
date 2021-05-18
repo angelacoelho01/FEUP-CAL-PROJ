@@ -26,7 +26,7 @@ double Vertex::getDistance() const {
     return this->_distance;
 }
 
-void Vertex::addEdge(int id, Vertex* orig, Vertex* dest, Time weight) {
+void Vertex::addEdge(int id, Vertex* orig, Vertex* dest, double weight) {
     _adj.push_back(Edge(id, orig, dest, weight));
 }
 

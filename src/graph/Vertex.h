@@ -43,9 +43,9 @@ private:
     Vertex* aPath = nullptr;
     Edge aPathEdge;
 
-    int _queueIndex = 0; // MutablePriorityQueue
+    int queueIndex = 0; // MutablePriorityQueue
 
-    void addEdge(int id, Vertex* orig, Vertex* dest, Time weight);
+    void addEdge(int id, Vertex* orig, Vertex* dest, double weight);
 };
 
 struct VertexHash {

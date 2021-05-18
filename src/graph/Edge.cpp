@@ -1,8 +1,8 @@
 #include "Edge.h"
 
-Edge::Edge() : _id(-1), _orig(nullptr), _dest(nullptr), _weight(Time(0, 0)) { }
+Edge::Edge() : _id(-1), _orig(nullptr), _dest(nullptr), _weight(0) { }
 
-Edge::Edge(int id, Vertex *orig, Vertex *dest, Time weight)
+Edge::Edge(int id, Vertex *orig, Vertex *dest, double weight)
         : _id(id), _orig(orig), _dest(dest), _weight(weight) { }
 
 int Edge::getId() const {
@@ -17,7 +17,7 @@ Vertex* Edge::getDest() const {
     return this->_dest;
 }
 
-Time Edge::getWeight() const {
+double Edge::getWeight() const {
     return this->_weight;
 }
 
@@ -33,7 +33,7 @@ void Edge::setDest(Vertex *dest) {
     this->_dest = dest;
 }
 
-void Edge::setWeight(const Time weight) {
+void Edge::setWeight(const double weight) {
     this->_weight = weight;
 }
 

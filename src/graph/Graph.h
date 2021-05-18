@@ -19,12 +19,12 @@ public:
     int getNumVertex() const;
 
     // single source algorithms
-    Vertex * initSingleSource(const int &origin);
+    Vertex * initSource(const int &origin);
     bool relax(Vertex *v, Edge edge);
     void dijkstraShortestPath(const int &origin);
     void dijkstraShortestPath(const int &origin, const int &dest);
-    std::vector<int> getPathVertices(const int origin, const int dest);
-    std::vector<Edge> getPathEdges(const int origin, const int dest);
+    std::vector<int> getPathVertices(const int origin, const int dest) const;
+    std::vector<Edge> getPathEdges(const int origin, const int dest) const;
     std::vector<int> getPath(const int origin, const int dest);
     // --
 

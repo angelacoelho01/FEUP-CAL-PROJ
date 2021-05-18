@@ -30,14 +30,12 @@ bool Graph::addEdge(int id, int origId, int destId) {
 
     // Distance between to points in the Map
     double dist = orig->getPosition().euclideanDistance(dest->getPosition()); // in meters
-
-    // TODO: pass speed to our time, according to distance
-    double time1 = dist * 3600 / (VAN_SPEED * 1000);
-    Time time = Time(0, 0);
+    // Time that takes to travel that road:: edge weight
+    double weightTime = dist * 3600 / (VAN_SPEED * 1000);
 
     // Suppose that all roads have 2 ways
-    orig->addEdge(id, orig, dest, time);
-    dest->addEdge(id+1, dest, orig, time);
+    orig->addEdge(id, orig, dest, weightTime);
+    dest->addEdge(id+1, dest, orig, weightTime);
     return true;
 }
 
@@ -97,7 +95,7 @@ void Graph::removeUnvisitedVertices() {
 
 // ------------------------------------------------------------
 // ----------------- single source algorithms -----------------
-Vertex* Graph::initSingleSource(const int &origin) {
+Vertex* Graph::initSource(const int &origin) {
     for (auto v : _vertexSet) {
         v->_visited = false;
         v->_distance = INF;
@@ -111,34 +109,88 @@ Vertex* Graph::initSingleSource(const int &origin) {
 }
 
 bool Graph::relax(Vertex* v, Edge edge) {
-    Time weight = edge.getWeight();
+    int weight = edge.getWeight();
     Vertex* w = edge.getDest();
-    /*
-    if (v->distance + weight < w->distance) {
-        w->distance = v->distance + weight;
-        w->path = v;
-        w->pathEdge = edge;
+
+    if (v->_distance + weight < w->_distance) {
+        w->_distance = v->_distance + weight;
+        w->_path = v;
+        w->_pathEdge = edge;
         return true;
     }
-    else
-        return false;
-    */
+
+    return false;
 }
 
 void Graph::dijkstraShortestPath(const int &origin) {
+    Vertex* s = initSource(origin);
+    MutablePriorityQueue<Vertex> q;
+    q.insert(s);
 
+    while (!q.empty()) {
+        Vertex* v = q.extractMin();
+        v->_visited = true;
+
+        for (const Edge& e : v->getAdj()) {
+            double oldDistance = e.getDest()->getDistance();
+            if (relax(v, e)) {
+                if (oldDistance == INF) q.insert(e.getDest());
+                else q.decreaseKey(e.getDest());
+            }
+        }
+    }
 }
 
 void Graph::dijkstraShortestPath(const int &origin, const int &dest) {
+    Vertex* s = initSource(origin);
+    Vertex* t = findVertex(dest);
+    MutablePriorityQueue<Vertex> q;
+    q.insert(s);
 
+    while (!q.empty()) {
+        Vertex* v = q.extractMin();
+        v->_visited = true;
+
+        if (v == t) return; // reached destination
+
+        for(const Edge& e : v->getAdj()) {
+            double oldDistance = e.getDest()->getDistance();
+            if (relax(v, e)) {
+                if (oldDistance == INF) q.insert(e.getDest());
+                else q.decreaseKey(e.getDest());
+            }
+        }
+    }
 }
 
-std::vector<int> Graph::getPathVertices(const int origin, const int dest) {
+std::vector<int> Graph::getPathVertices(const int origin, const int dest) const {
+    std::vector<int> res;
+    Vertex* s = findVertex(origin);
+    Vertex* t = findVertex(dest);
 
+    if (s == nullptr || t == nullptr || t->getDistance() == INF) // missing or disconnected
+        return res;
+
+    for ( ; t != nullptr; t = t->_path)
+        res.push_back(t->getId());
+
+    reverse(res.begin(), res.end());
+    return res;
 }
 
-std::vector<Edge> Graph::getPathEdges(const int origin, const int dest) {
+std::vector<Edge> Graph::getPathEdges(const int origin, const int dest) const {
+    std::vector<Edge> res;
+    Vertex* s = findVertex(origin);
+    Vertex* t = findVertex(dest);
 
+    if (s == nullptr || t == nullptr || t->getDistance() == INF) // missing or disconnected
+        return res;
+
+    for ( ; t->getId() != origin; t = t->_path)
+        res.push_back(t->_pathEdge);
+
+    reverse(res.begin(), res.end());
+    return res;
 }
 
 std::vector<int> Graph::getPath(const int origin, const int dest) {

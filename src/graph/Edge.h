@@ -8,17 +8,17 @@ class Vertex;
 class Edge {
 public:
     Edge();
-    Edge(int id, Vertex *orig, Vertex* dest, Time weight);
+    Edge(int id, Vertex *orig, Vertex* dest, double weight);
 
     int getId() const;
     Vertex* getOrig() const;
     Vertex* getDest() const;
-    Time getWeight() const;
+    double getWeight() const;
 
     void setId(int id);
     void setOrig(Vertex* orig);
     void setDest(Vertex* dest);
-    void setWeight(Time weight);
+    void setWeight(double weight);
 
     void invertEdge();
 
@@ -28,7 +28,7 @@ public:
 private:
     int _id;
     Vertex *_orig, *_dest;
-    Time _weight;
+    double _weight;
 };
 
 #endif //SRC_EDGE_H
