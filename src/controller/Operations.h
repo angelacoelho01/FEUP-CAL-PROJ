@@ -10,7 +10,7 @@ namespace operation {
 
     void aStar();
 
-    void orders(std::string orders_folder);
+    void orders(std::string file_number);
 }
 
 #endif //SRC_OPERATIONS_H

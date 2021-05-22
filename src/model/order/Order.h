@@ -25,6 +25,7 @@ public:
     void setQuantity(int quantity);
     void setPreferredHour(Time preferredTime);
 
+    bool operator<(const Order &order) const;
     friend std::ostream& operator<<(std::ostream& os, const Order& order);
 private:
     int _address; // node id

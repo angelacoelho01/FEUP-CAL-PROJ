@@ -1,5 +1,4 @@
-#include "util/Time.h"
-#include "operations/Operations.h"
+#include "controller/Operations.h"
 
 #include <iostream>
 
@@ -8,14 +7,10 @@ void printUsage() {
     std::cout << "./silvios view" << std::endl;
     std::cout << "./silvios preprocess" << std::endl;
     std::cout << "./silvios astar" << std::endl;
-    std::cout << "./silvios orders <orders_file>" << std::endl;
+    std::cout << "./silvios orders <file_number>" << std::endl;
 }
 
 int main(int argc, char* argv[]) {
-    /*Time time(23, 30);
-    Time time2(0, 30);
-    std::cout << time + time2 << std::endl;
-     */
 
     if (argc < 2) {
         printUsage();

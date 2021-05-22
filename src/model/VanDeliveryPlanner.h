@@ -1,9 +1,10 @@
 #ifndef SRC_VAN_DELIVERY_PLANNER_H
 #define SRC_VAN_DELIVERY_PLANNER_H
 
-#include <set>
 #include "../graph/Graph.h"
 #include "van/Van.h"
+
+#include <set>
 
 // for later improvements the areas for which van is responsible by
 // and the corresponding orders (according to their capacity) is defined before hand
@@ -14,14 +15,12 @@
 
 class VanDeliveryPlanner {
 public:
-    VanDeliveryPlanner(Graph * graph, int bakery, Van van);
+    VanDeliveryPlanner(Graph * graph, int bakery, const Van& van);
 
     Graph * getGraph() const;
     int getBakery() const;
     Van getVan() const;
     std::multiset<Order> getOrders() const;
-
-    bool addReservationsFromFile(std::string location, std::string filename);
 
     void preProcessEntryData();
     void planVanDeliveryWithoutTimeWindow();

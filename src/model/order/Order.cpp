@@ -35,7 +35,11 @@ void Order::setPreferredHour(const Time preferredHour) {
     this->_preferredHour = preferredHour;
 }
 
+bool Order::operator<(const Order &order) const {
+    return this->_preferredHour < order.getPreferredHour();
+}
+
 std::ostream& operator<<(std::ostream& os, const Order& order) {
-    os << "(" << order.getClient().getIdNumber() << ") Address: " << order.getAddress() << " | Preferred Hour: " << order.getPreferredHour() << " | Quantity: " << order.getQuantity();
+    os << "(" << order.getClient().getNif() << ") Address: " << order.getAddress() << " | Preferred Hour: " << order.getPreferredHour() << " | Quantity: " << order.getQuantity();
     return os;
 }
