@@ -1,9 +1,9 @@
 #include "Utils.h"
 
-int min(int a, int b) {
+int util::min(int a, int b) {
     return a > b ? b : a;
 }
 
-int max(int a, int b) {
+int util::max(int a, int b) {
     return a > b ? a : b;
 }

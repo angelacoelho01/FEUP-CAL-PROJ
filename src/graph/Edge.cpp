@@ -1,5 +1,6 @@
 #include "Edge.h"
 
+#include "../model/SilviosBakery.h"
 #include "../util/Utils.h"
 
 Edge::Edge() : _id(-1), _orig(nullptr), _dest(nullptr), _weight(0) { }

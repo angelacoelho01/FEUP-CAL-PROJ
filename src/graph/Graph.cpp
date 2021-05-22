@@ -1,5 +1,6 @@
 #include "Graph.h"
 
+#include "../model/SilviosBakery.h"
 #include "../util/Utils.h"
 
 #include <iostream>
@@ -194,7 +195,9 @@ std::vector<Edge> Graph::getPathEdges(const int origin, const int dest) const {
 }
 
 std::vector<int> Graph::getPath(const int origin, const int dest) {
+    std::vector<int> res;
 
+    return res;
 }
 
 // ------------------------------------------------------------
