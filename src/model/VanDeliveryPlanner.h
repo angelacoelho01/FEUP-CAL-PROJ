@@ -32,6 +32,7 @@ private:
     Graph * _graph; // the graph that represents the area for which the van is responsible
     int _bakery; // vertex here is located the bakery
     Van _van; // already has the orders that must delivery
+    std::multiset<Order> _orders; // the ordered orders that the van is responsible by
 };
 
 #endif //SRC_VAN_DELIVERY_PLANNER_H
