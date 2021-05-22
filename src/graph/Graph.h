@@ -3,6 +3,7 @@
 
 #include "Vertex.h"
 #include "../util/MutablePriorityQueue.h"
+#include "../model/van/Van.h"
 
 #include <vector>
 #include <algorithm>
@@ -17,6 +18,7 @@ public:
     bool addVertex(const int &id, int x, int y);
     bool addEdge(int id, int origId, int destId);
     int getNumVertex() const;
+    void checkInvalidOrders(Van &van);
 
     // single source algorithms
     Vertex * initSource(const int &origin);

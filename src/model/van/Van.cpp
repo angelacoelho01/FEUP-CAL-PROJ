@@ -1,4 +1,6 @@
 #include "Van.h"
+#include <bits/stdc++.h>
+
 
 Van::Van(Van const &van) {
     _driver = van.getDriver();
@@ -44,4 +46,19 @@ void Van::addOrder(const Order& order) {
 
 void Van::clearOrders() {
     this->_orders.clear();
+}
+
+void Van::sortOrders(){
+    sort(_orders.begin(), _orders.end());
+}
+
+void Van::eraseInvalidOrders( std::vector<Order>& invalidOrders) {
+    for (auto & invalidOrder : invalidOrders){
+        for (auto order = _orders.begin(); order != _orders.end(); order++){
+            if (*order == invalidOrder) {
+                _orders.erase(order);
+                break;
+            }
+        }
+    }
 }

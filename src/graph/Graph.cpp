@@ -44,6 +44,17 @@ int Graph::getNumVertex() const {
     return (int) (this->_vertexSet).size();
 }
 
+void Graph::checkInvalidOrders(Van &van) {
+    std::vector<Order> invalidOrders;
+    for (auto & order : van.getOrders()){
+        if (findVertex(order.getAddress()) == nullptr){
+            invalidOrders.push_back(order);
+        }
+
+    }
+    van.eraseInvalidOrders(invalidOrders);
+}
+
 void Graph::reset() {
     for (auto & i : _vertexSet) delete i;
     _vertexSet.clear();

@@ -27,6 +27,8 @@ public:
 
     bool operator<(const Order &order) const;
     friend std::ostream& operator<<(std::ostream& os, const Order& order);
+    bool operator==(const Order &order) const;
+
 private:
     int _address; // node id
     Client _client;

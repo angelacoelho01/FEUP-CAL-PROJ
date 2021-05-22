@@ -43,3 +43,8 @@ std::ostream& operator<<(std::ostream& os, const Order& order) {
     os << "(" << order.getClient().getNif() << ") Address: " << order.getAddress() << " | Preferred Hour: " << order.getPreferredHour() << " | Quantity: " << order.getQuantity();
     return os;
 }
+
+
+bool Order::operator==(const Order &order) const {
+    return getPreferredHour() == order.getPreferredHour() && getAddress() == order.getAddress();
+}

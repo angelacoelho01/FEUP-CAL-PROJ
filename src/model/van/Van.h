@@ -21,11 +21,15 @@ public:
     void setDeliveryTime(Time deliveryTime);
     void addOrder(const Order& order);
     void clearOrders();
+    void sortOrders();
+    void eraseInvalidOrders( std::vector<Order> &invalidOrders);
+
 private:
     std::string _driver;
     int _capacity;
     Time _deliveryTime;
     std::vector<Order> _orders;
+
 };
 
 #endif //SRC_VAN_H
