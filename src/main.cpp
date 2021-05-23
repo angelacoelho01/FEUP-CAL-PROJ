@@ -9,7 +9,7 @@
 #include <sstream>
 
 int main() {
-    MapLoader mapLoader(1600, 900);
-    mapLoader.loadMap("Coimbra");
+    MapLoader mapLoader(1644, 921);
+    mapLoader.loadMap("Porto");
     return 0;
 }
