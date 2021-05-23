@@ -4,8 +4,8 @@
 #include <vector>
 #include <string>
 #include "Edge.h"
-#include "../util/Position.h"
-#include "../util/MapLabel.h"
+#include "../util/map/Position.h"
+#include "../util/map/MapLabel.h"
 #include "../util/MutablePriorityQueue.h"
 
 class Vertex {
