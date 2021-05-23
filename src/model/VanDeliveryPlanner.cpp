@@ -152,7 +152,7 @@ Time calculatePathTime(std::vector<Edge> path) {
 
 int VanDeliveryPlanner::calculateMinWaitPathInInterval(Order currentOrder, Time arrival, std::multiset<Order> remainingOrders, std::vector<Edge> &path) {
     if (currentOrder.getPreferredHour() + Time(0, MAX_ARRIVAL_TIME) < arrival)
-        return INF;
+        return INF_INT;
 
     int waitTimeHere = abs(arrival.toMinutes() - currentOrder.getPreferredHour().toMinutes()); // the interval of time that this client waits
 
@@ -171,7 +171,7 @@ int VanDeliveryPlanner::calculateMinWaitPathInInterval(Order currentOrder, Time 
         arrival = minLimitTime; // wait till lower bound of the time window
 
     arrival = arrival + _van.getDeliveryTime(); // stops and deliver the order to client
-    int minNextWaitTime = INF;
+    int minNextWaitTime = INF_INT;
     std::vector<Edge> minNextPath;
 
     for (auto remainOrder : remainingOrders) {
@@ -202,7 +202,8 @@ void VanDeliveryPlanner::planVanDeliveryWithTimeWindow() {
     this->preProcessEntryData();
 
     Time startTime = Time(7, 0); // start time for the deliveries
-    int minWaitTime = INF;
+    double minAverageWaitTime = INF;
+    int numOrders = _orders.size();
 
     for (auto order : _orders) {
         std::vector<Edge> path;
@@ -216,10 +217,11 @@ void VanDeliveryPlanner::planVanDeliveryWithTimeWindow() {
 
         Time arrivalTime = startTime + calculatePathTime(path);
         tmpOrders.erase(order);
-        int waitTime = calculateMinWaitPathInInterval(order, arrivalTime, tmpOrders, path);
+        int totalWaitTime = calculateMinWaitPathInInterval(order, arrivalTime, tmpOrders, path);
 
-        if (waitTime < minWaitTime) {
-            minWaitTime = waitTime;
+        double averageWaitTime = (double) totalWaitTime / numOrders;
+        if (averageWaitTime < minAverageWaitTime) {
+            minAverageWaitTime = averageWaitTime;
             _path = path;
         }
     }
