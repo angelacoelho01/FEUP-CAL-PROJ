@@ -36,7 +36,7 @@ void VanDeliveryPlanner::preProcessEntryData() {
     // Pre Process Orders - Find if some order does not belong to the graph
     std::vector<Order> toAdd(_orders.begin(), _orders.end());
     std::vector<Order>::iterator it;
-    
+
     // Find if some order does not belong to the graph
     for (it = toAdd.begin(); it != toAdd.end(); it++) {
         if (_graph->findVertex((*it).getAddress()) == nullptr) {
