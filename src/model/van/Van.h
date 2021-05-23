@@ -19,6 +19,7 @@ public:
     void setDriver(std::string &driver);
     void setCapacity(int capacity);
     void setDeliveryTime(Time deliveryTime);
+    void setOrders(std::vector<Order> orders);
     void addOrder(const Order& order);
     void clearOrders();
 private:

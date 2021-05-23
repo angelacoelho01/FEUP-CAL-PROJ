@@ -5,9 +5,10 @@
 void printUsage() {
     std::cout << "Usage:" << std::endl;
     std::cout << "./silvios view" << std::endl;
-    std::cout << "./silvios preprocess" << std::endl;
-    std::cout << "./silvios astar" << std::endl;
-    std::cout << "./silvios orders <file_number>" << std::endl;
+    std::cout << "./silvios preprocess <node_id>" << std::endl;
+    std::cout << "./silvios astar <node_id1> <node_id2>" << std::endl;
+    std::cout << "./silvios orders <file_name>" << std::endl;
+    std::cout << "./silvios orders intime <file_name>" << std::endl;
 }
 
 int main(int argc, char* argv[]) {
@@ -19,22 +20,39 @@ int main(int argc, char* argv[]) {
 
     std::string operation = argv[1];
     if (operation == "view") {
-        // only draw the original graph of the area
         operation::view();
+
     } else if (operation == "preprocess") {
-        // analyse connectivity and remove unvisited vertices
-        // show preprocess graph
-        operation::preprocess();
-    } else if (operation == "astar") {
-        // process graph using Astar algorithm
-        operation::aStar();
-    } else if (operation == "orders") {
         if (argc != 3) {
             std::cout << "Not enough arguments." << std::endl;
             exit(1);
         }
-        // pass a van for all orders in this folder with time interval
-        operation::orders(argv[2]);
+
+        operation::preprocess(atoi(argv[2]));
+    } else if (operation == "astar") {
+        if (argc != 4) {
+            std::cout << "Not enough arguments." << std::endl;
+            exit(1);
+        }
+
+        operation::aStar(atoi(argv[2]), atoi(argv[3]));
+    } else if (operation == "orders") {
+        if (argc != 3 && argc != 4) {
+            std::cout << "Not enough arguments." << std::endl;
+            exit(1);
+        }
+
+        std:: string specification = argv[2];
+        if (specification == "intime") {
+            if (argc != 4) {
+                std::cout << "Not enough arguments." << std::endl;
+                exit(1);
+            }
+
+            operation::ordersInTime(specification);
+        } else {
+            operation::orders(specification);
+        }
     } else {
         printUsage();
     }

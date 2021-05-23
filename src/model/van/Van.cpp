@@ -1,5 +1,7 @@
 #include "Van.h"
 
+#include <utility>
+
 Van::Van(Van const &van) {
     _driver = van.getDriver();
     _capacity = van.getCapacity();
@@ -37,6 +39,11 @@ void Van::setCapacity(const int capacity){
 void Van::setDeliveryTime(const Time deliveryTime){
     this->_deliveryTime = deliveryTime;
 }
+
+void Van::setOrders(std::vector<Order> orders) {
+    this->_orders = std::move(orders);
+}
+
 
 void Van::addOrder(const Order& order) {
     this->_orders.push_back(order);

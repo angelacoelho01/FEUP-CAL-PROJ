@@ -15,24 +15,31 @@
 
 class VanDeliveryPlanner {
 public:
-    VanDeliveryPlanner(Graph * graph, int bakery, const Van& van);
+    VanDeliveryPlanner(Graph *graph, int bakery, const Van& van);
 
     Graph * getGraph() const;
     int getBakery() const;
     Van getVan() const;
     std::multiset<Order> getOrders() const;
+    std::multiset<Order> buildOrders() const;
+    std::vector<Edge> getPath() const;
 
     void preProcessEntryData();
     void planVanDeliveryWithoutTimeWindow();
     void planVanDeliveryWithTimeWindow();
 
     std::vector<Edge> calculatePath(const std::set<Vertex*>& orders);
-    int objectiveFunction();
+    std::vector<Edge> calculatePathFromOrders();
+    // int objectiveFunction();
 private:
     Graph * _graph; // the graph that represents the area for which the van is responsible
-    int _bakery; // vertex here is located the bakery
+    int _bakery; // vertex id here is located the bakery
     Van _van; // already has the orders that must delivery
-    std::multiset<Order> _orders; // the ordered orders that the van is responsible by
+
+    std::multiset<Order> _orders; // the ordered orders that the van is responsible by, ordered by desired delivery time
+    std::vector<Edge> _path; // represents the edges that the van must travel to delivery all orders
+
+    std::vector<Vertex*>::const_iterator getClosestVertex(Vertex* pivot, const std::vector<Vertex*>& list);
 };
 
 #endif //SRC_VAN_DELIVERY_PLANNER_H

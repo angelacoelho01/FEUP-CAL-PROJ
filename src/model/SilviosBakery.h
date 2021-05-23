@@ -3,6 +3,7 @@
 
 // TODO: decide
 #define SILVIOS_BAKERY 1239645072 // node id
+#define BAKERY_ZONE "Porto"
 
 #define MAX_ARRIVAL_TIME 30 // minutes
 #define MIN_ARRIVAL_TIME 10 // minutes
