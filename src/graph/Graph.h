@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <unordered_map>
 
-#define INF std::numeric_limits<double>::max()
+#define INF std::numeric_limits<int>::max()
 
 class Graph {
 public:

@@ -150,11 +150,11 @@ Time calculatePathTime(std::vector<Edge> path) {
     return Time(seconds);
 }
 
-int VanDeliveryPlanner::calculatePathWithTimeInterval(Order currentOrder, Time arrival, std::multiset<Order> remainingOrders, std::vector<Edge> &path) {
+int VanDeliveryPlanner::calculateMinWaitPathInInterval(Order currentOrder, Time arrival, std::multiset<Order> remainingOrders, std::vector<Edge> &path) {
     if (currentOrder.getPreferredHour() + Time(0, MAX_ARRIVAL_TIME) < arrival)
         return INF;
 
-    int waitTime = abs(arrival.toMinutes() - currentOrder.getPreferredHour().toMinutes()); // the interval of time that this client waits
+    int waitTimeHere = abs(arrival.toMinutes() - currentOrder.getPreferredHour().toMinutes()); // the interval of time that this client waits
 
     Vertex* currentOrderVertex = _graph->findVertex(currentOrder.getAddress());
     if (remainingOrders.empty()) {
@@ -163,7 +163,7 @@ int VanDeliveryPlanner::calculatePathWithTimeInterval(Order currentOrder, Time a
         std::vector<Edge> tmpPath = _graph->AGetPathEdges(currentOrderVertex->getId(), _bakery);
         path.insert(path.end(), tmpPath.begin(), tmpPath.end());
 
-        return waitTime;
+        return waitTimeHere;
     }
 
     Time minLimitTime = currentOrder.getPreferredHour() - Time(0, MIN_ARRIVAL_TIME);
@@ -171,8 +171,8 @@ int VanDeliveryPlanner::calculatePathWithTimeInterval(Order currentOrder, Time a
         arrival = minLimitTime; // wait till lower bound of the time window
 
     arrival = arrival + _van.getDeliveryTime(); // stops and deliver the order to client
-    int minNextWaitTime = 0;
-    std::vector<Edge> minPath;
+    int minNextWaitTime = INF;
+    std::vector<Edge> minNextPath;
 
     for (auto remainOrder : remainingOrders) {
         std::vector<Edge> nextPath;
@@ -186,16 +186,16 @@ int VanDeliveryPlanner::calculatePathWithTimeInterval(Order currentOrder, Time a
 
         Time arrivalTime = arrival + calculatePathTime(nextPath);
         tmpOrders.erase(remainOrder);
-        int nextWaitTime = calculatePathWithTimeInterval(remainOrder, arrivalTime, tmpOrders, nextPath);
+        int nextWaitTime = calculateMinWaitPathInInterval(remainOrder, arrivalTime, tmpOrders, nextPath);
 
         if (nextWaitTime < minNextWaitTime) {
             minNextWaitTime = nextWaitTime;
-            minPath = path;
+            minNextPath = nextPath;
         }
     }
 
-    path = minPath;
-    return waitTime + minNextWaitTime;
+    path.insert(path.end(), minNextPath.begin(), minNextPath.end());
+    return waitTimeHere + minNextWaitTime;
 }
 
 void VanDeliveryPlanner::planVanDeliveryWithTimeWindow() {
@@ -216,7 +216,7 @@ void VanDeliveryPlanner::planVanDeliveryWithTimeWindow() {
 
         Time arrivalTime = startTime + calculatePathTime(path);
         tmpOrders.erase(order);
-        int waitTime = calculatePathWithTimeInterval(order, arrivalTime, tmpOrders, path);
+        int waitTime = calculateMinWaitPathInInterval(order, arrivalTime, tmpOrders, path);
 
         if (waitTime < minWaitTime) {
             minWaitTime = waitTime;

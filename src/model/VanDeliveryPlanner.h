@@ -31,7 +31,7 @@ public:
     std::vector<Edge> calculatePath(const std::set<Vertex*>& orders);
     std::vector<Edge> calculatePathFromOrders();
 
-    int calculatePathWithTimeInterval(Order currentOrder, Time arrival, std::multiset<Order> remainingOrders, std::vector<Edge> &path);
+    int calculateMinWaitPathInInterval(Order currentOrder, Time arrival, std::multiset<Order> remainingOrders, std::vector<Edge> &path);
 
     // int objectiveFunction();
 private:
