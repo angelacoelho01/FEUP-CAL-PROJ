@@ -1,4 +1,5 @@
 #include "VanDeliveryPlanner.h"
+#include "SilviosBakery.h"
 
 VanDeliveryPlanner::VanDeliveryPlanner(Graph *graph, int bakery, const Van& van)
         : _graph(graph), _bakery(bakery), _van(van) {
@@ -60,15 +61,7 @@ void VanDeliveryPlanner::preProcessEntryData() {
     _graph->dijkstraShortestPath(_bakery);
 }
 
-void VanDeliveryPlanner::planVanDeliveryWithoutTimeWindow() {
-    this->preProcessEntryData();
-
-    _path = this->calculatePathFromOrders();
-}
-
-void VanDeliveryPlanner::planVanDeliveryWithTimeWindow() {
-
-}
+// *********************** WITHOUT TIME WINDOW - NEAREST NEIGHBOR ***********************
 
 std::vector<Vertex*>::const_iterator VanDeliveryPlanner::getClosestVertex(Vertex* pivot, const std::vector<Vertex*>& list) {
 
@@ -138,4 +131,96 @@ std::vector<Edge> VanDeliveryPlanner::calculatePathFromOrders() {
     }
 
     return this->calculatePath(vertexes);
+}
+
+void VanDeliveryPlanner::planVanDeliveryWithoutTimeWindow() {
+    this->preProcessEntryData();
+
+    _path = this->calculatePathFromOrders();
+}
+
+// *********************** TIME WINDOW - BRUTE FORCE ***********************
+
+Time calculatePathTime(std::vector<Edge> path) {
+    double seconds = 0;
+    for (auto e : path) {
+        seconds += e.getWeight();
+    }
+
+    return Time(seconds);
+}
+
+int VanDeliveryPlanner::calculatePathWithTimeInterval(Order currentOrder, Time arrival, std::multiset<Order> remainingOrders, std::vector<Edge> &path) {
+    if (currentOrder.getPreferredHour() + Time(0, MAX_ARRIVAL_TIME) < arrival)
+        return INF;
+
+    int waitTime = abs(arrival.toMinutes() - currentOrder.getPreferredHour().toMinutes()); // the interval of time that this client waits
+
+    Vertex* currentOrderVertex = _graph->findVertex(currentOrder.getAddress());
+    if (remainingOrders.empty()) {
+        // From final order back to Silvio's Bakery
+        _graph->AStar(currentOrderVertex->getId(), _bakery);
+        std::vector<Edge> tmpPath = _graph->AGetPathEdges(currentOrderVertex->getId(), _bakery);
+        path.insert(path.end(), tmpPath.begin(), tmpPath.end());
+
+        return waitTime;
+    }
+
+    Time minLimitTime = currentOrder.getPreferredHour() - Time(0, MIN_ARRIVAL_TIME);
+    if (arrival < minLimitTime)
+        arrival = minLimitTime; // wait till lower bound of the time window
+
+    arrival = arrival + _van.getDeliveryTime(); // stops and deliver the order to client
+    int minNextWaitTime = 0;
+    std::vector<Edge> minPath;
+
+    for (auto remainOrder : remainingOrders) {
+        std::vector<Edge> nextPath;
+        std::multiset<Order> tmpOrders = remainingOrders;
+
+        Vertex* remainOrderVertex = _graph->findVertex(remainOrder.getAddress());
+        // Make the path from silvio's bakery to the order
+        _graph->AStar(currentOrderVertex->getId(), remainOrderVertex->getId());
+        std::vector<Edge> tmpPath = _graph->AGetPathEdges(currentOrderVertex->getId(), remainOrderVertex->getId());
+        nextPath.insert(nextPath.end(), tmpPath.begin(), tmpPath.end());
+
+        Time arrivalTime = arrival + calculatePathTime(nextPath);
+        tmpOrders.erase(remainOrder);
+        int nextWaitTime = calculatePathWithTimeInterval(remainOrder, arrivalTime, tmpOrders, nextPath);
+
+        if (nextWaitTime < minNextWaitTime) {
+            minNextWaitTime = nextWaitTime;
+            minPath = path;
+        }
+    }
+
+    path = minPath;
+    return waitTime + minNextWaitTime;
+}
+
+void VanDeliveryPlanner::planVanDeliveryWithTimeWindow() {
+    this->preProcessEntryData();
+
+    Time startTime = Time(7, 0); // start time for the deliveries
+    int minWaitTime = INF;
+
+    for (auto order : _orders) {
+        std::vector<Edge> path;
+        std::multiset<Order> tmpOrders = _orders;
+
+        Vertex* orderVertex = _graph->findVertex(order.getAddress());
+        // Make the path from silvio's bakery to the order
+        _graph->AStar(_bakery, orderVertex->getId());
+        std::vector<Edge> fromBakery = _graph->AGetPathEdges(_bakery, orderVertex->getId());
+        path.insert(path.end(), fromBakery.begin(), fromBakery.end());
+
+        Time arrivalTime = startTime + calculatePathTime(path);
+        tmpOrders.erase(order);
+        int waitTime = calculatePathWithTimeInterval(order, arrivalTime, tmpOrders, path);
+
+        if (waitTime < minWaitTime) {
+            minWaitTime = waitTime;
+            _path = path;
+        }
+    }
 }
