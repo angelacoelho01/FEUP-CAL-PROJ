@@ -1,9 +1,9 @@
 #ifndef SRC_FILESREADER_H
 #define SRC_FILESREADER_H
 
-#include "../model/van/Van.h"
 #include "../model/client/Client.h"
 #include "../model/order/Order.h"
+#include "../model/van/Van.h"
 
 #include <iostream>
 #include <vector>
