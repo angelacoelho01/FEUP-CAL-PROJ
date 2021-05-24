@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <iostream>
 
-#include "../model/exception/Time_Exception.h"
+#include "../model/exception/TimeException.h"
 
 Time::Time() : _time{0, 0, 0, 1, 1} {
     time_t t = std::time(nullptr);
@@ -13,6 +13,16 @@ Time::Time() : _time{0, 0, 0, 1, 1} {
 Time::Time(int hour, int minute) : _time() {
     _time.tm_hour = hour;
     _time.tm_min = minute;
+    _time.tm_year = 2021 - 1900;
+    _time.tm_mon = 1;
+    _time.tm_mday = 1;
+    _time.tm_isdst = -1;
+    if(!isValid()) throw InvalidTime(getTime());
+}
+
+Time::Time(int seconds) {
+    _time.tm_hour = seconds / 3600;
+    _time.tm_min = (seconds % 3600) / 60;
     _time.tm_year = 2021 - 1900;
     _time.tm_mon = 1;
     _time.tm_mday = 1;
@@ -35,6 +45,14 @@ std::string  Time::getTime() const {
     return os.str();
 }
 
+int Time::toMinutes() const {
+    return (_time.tm_hour * 60) + _time.tm_min;
+}
+
+int Time::toSeconds() const {
+    return (_time.tm_hour * 3600) + (_time.tm_min * 60);
+}
+
 void Time::addHours(int hours) {
     _time.tm_hour += hours;
     std::time_t time = mktime(&_time);
@@ -43,6 +61,18 @@ void Time::addHours(int hours) {
 
 void Time::addMinutes(int minutes) {
     _time.tm_min += minutes;
+    std::time_t time = mktime(&_time);
+    localtime_r(&time,&_time);
+}
+
+void Time::subHours(int hours) {
+    _time.tm_hour -= hours;
+    std::time_t time = mktime(&_time);
+    localtime_r(&time,&_time);
+}
+
+void Time::subMinutes(int minutes) {
+    _time.tm_min -= minutes;
     std::time_t time = mktime(&_time);
     localtime_r(&time,&_time);
 }
@@ -58,6 +88,12 @@ bool Time::operator<(const Time &time) const {
 Time Time::operator+(const Time &time) {
     this->addMinutes((int) time.getMinute());
     this->addHours((int) time.getHour());
+    return *this;
+}
+
+Time Time::operator-(const Time &time) {
+    this->subMinutes((int) time.getMinute());
+    this->subHours((int) time.getHour());
     return *this;
 }
 
