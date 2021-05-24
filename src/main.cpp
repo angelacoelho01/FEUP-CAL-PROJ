@@ -1,6 +1,12 @@
 #include "controller/Operations.h"
 
 #include <iostream>
+#include <algorithm>
+
+#include "map/MapLoader.h"
+
+#include <float.h>
+#include <sstream>
 
 void printUsage() {
     std::cout << "Usage:" << std::endl;
@@ -12,6 +18,9 @@ void printUsage() {
 }
 
 int main(int argc, char* argv[]) {
+
+    MapLoader mapLoader(1644, 921);
+    mapLoader.loadMap("Porto");
 
     if (argc < 2) {
         printUsage();

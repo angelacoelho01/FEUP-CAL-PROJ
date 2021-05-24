@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <iostream>
 
-#include "../model/exception/Time_Exception.h"
+#include "../model/exception/TimeException.h"
 
 Time::Time() : _time{0, 0, 0, 1, 1} {
     time_t t = std::time(nullptr);
