@@ -72,7 +72,7 @@ void operation::aStar(int start_node, int dest_node) {
     mapDrawer.setNodeColor(dest_node, GraphViewer::CYAN);
     // highlight path edges
     for (const Edge& e: path) {
-        mapDrawer.setEdgeThickness(e.getId(), 20);
+        mapDrawer.setEdgeThickness(e.getId(), 10);
         mapDrawer.setEdgeColor(e.getId(), GraphViewer::YELLOW);
     }
     mapDrawer.drawGraphViewer();
@@ -101,14 +101,21 @@ void operation::orders(const std::string& file_name) {
     mapDrawer.setNodeSize(bakeryId, 50);
     mapDrawer.setNodeColor(bakeryId, GraphViewer::CYAN);
     // highlight points of delivery
+    std::set<int> ordersAddress;
     for (const Order& order: planner.getOrders()) {
+        std::cout << "Order id - " << order.getAddress() << std::endl;
+        ordersAddress.insert(order.getAddress());
         mapDrawer.setNodeSize(order.getAddress(), 50);
         mapDrawer.setNodeColor(order.getAddress(), GraphViewer::GREEN);
     }
     // highlight path
+    int i = 1;
     for (const Edge& e: planner.getPath()) {
-        mapDrawer.setEdgeThickness(e.getId(), 20);
+        mapDrawer.setEdgeThickness(e.getId(), 10);
         mapDrawer.setEdgeColor(e.getId(), GraphViewer::YELLOW);
+        if (ordersAddress.find(e.getDest()->getId()) != ordersAddress.end()) {
+            mapDrawer.getGraphViewer()->getNode(e.getDest()->getId()).setLabel(std::to_string(i++));
+        }
     }
     mapDrawer.drawGraphViewer();
     // getchar();
@@ -142,7 +149,7 @@ void operation::ordersInTime(const std::string& file_name) {
     }
     // highlight path
     for (const Edge& e: planner.getPath()) {
-        mapDrawer.setEdgeThickness(e.getId(), 20);
+        mapDrawer.setEdgeThickness(e.getId(), 10);
         mapDrawer.setEdgeColor(e.getId(), GraphViewer::ORANGE);
     }
     mapDrawer.drawGraphViewer();

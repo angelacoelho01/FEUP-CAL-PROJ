@@ -120,7 +120,7 @@ bool MapDrawer::loadMapFromGraph(Graph* graph) {
         for (const Edge &e : v->getAdj()) {
             GraphViewer::Node &nodeOrig = _graphViewer.getNode(v->getId());
             GraphViewer::Node &nodeDest = _graphViewer.getNode(e.getDest()->getId());
-            _graphViewer.addEdge(e.getId(), nodeOrig, nodeDest , GraphViewer::Edge::EdgeType::DIRECTED);
+            _graphViewer.addEdge(e.getId(), nodeOrig, nodeDest , GraphViewer::Edge::EdgeType::UNDIRECTED);
         }
     }
     /*
