@@ -21,24 +21,13 @@ void printUsage() {
 }
 
 int main(int argc, char* argv[]) {
-    /*
-    MapDrawer mapDrawer(1644, 921);
-    mapDrawer.drawMapFromFile("Porto");
-    */
-    /*
-    MapDrawer mapDrawer(1644, 921);
-    Graph graph;
-    GraphLoader::loadGraph(BAKERY_ZONE, &graph);
-    mapDrawer.drawMapFromGraph(&graph);
-    */
-
-    // to test purposes
+    // *** to test purposes ***
     // operation::view();
     // operation::preprocess(SILVIOS_BAKERY);
     // operation::aStar(SILVIOS_BAKERY, 262);
-    //operation::orders("orders_1.txt");
-    //operation::ordersInTime("orders_1.txt");
-    //return 0;
+    // operation::orders("orders_1.txt");
+    // operation::ordersInTime("orders_1.txt");
+    // return 0;
 
     if (argc < 2) {
         printUsage();
