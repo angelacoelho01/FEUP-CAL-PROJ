@@ -103,7 +103,6 @@ void operation::orders(const std::string& file_name) {
     // highlight points of delivery
     std::set<int> ordersAddress;
     for (const Order& order: planner.getOrders()) {
-        std::cout << "Order id - " << order.getAddress() << std::endl;
         ordersAddress.insert(order.getAddress());
         mapDrawer.setNodeSize(order.getAddress(), 50);
         mapDrawer.setNodeColor(order.getAddress(), GraphViewer::GREEN);
