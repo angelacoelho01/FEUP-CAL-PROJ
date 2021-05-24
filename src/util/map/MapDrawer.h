@@ -14,18 +14,18 @@ public:
     MapDrawer(int width, int height);
     ~MapDrawer();
 
-    // GraphViewer* getGraphViewer();
+    GraphViewer* getGraphViewer();
+    void rearrange();
 
     bool drawMapFromFile(const std::string& location);
     bool drawMapFromGraph(Graph* graph);
-    static std::string getLabelColor(MapLabel label);
+    const sf::Color getLabelColor(MapLabel label);
 private:
     int _width, _height;
     GraphViewer _graphViewer;
 
     void loadNodesFromFile(const std::string& location);
     void loadEdgesFromFile(const std::string& location);
-    void resetGraphViewer();
 };
 
 #endif //SRC_MAPDRAWER_H

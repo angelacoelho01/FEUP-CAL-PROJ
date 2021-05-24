@@ -52,7 +52,7 @@ FT_BEGIN_HEADER
    *
    * @values:
    *   TT_PLATFORM_APPLE_UNICODE ::
-   *     Used by Apple to indicate a Unicode character map and/or name entry.
+   *     Used by Apple to indicate a Unicode character map-backup and/or name entry.
    *     See @TT_APPLE_ID_XXX for corresponding `encoding_id' values.  Note
    *     that name entries in this format are coded as big-endian UCS-2
    *     character codes _only_.

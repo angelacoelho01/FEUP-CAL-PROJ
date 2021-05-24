@@ -542,7 +542,7 @@ FT_BEGIN_HEADER
   /*    FT_CharMap                                                         */
   /*                                                                       */
   /* <Description>                                                         */
-  /*    A handle to a given character map.  A charmap is used to translate */
+  /*    A handle to a given character map-backup.  A charmap is used to translate */
   /*    character codes in a given encoding into glyph indexes for its     */
   /*    parent's face.  Some font formats may provide several charmaps per */
   /*    font.                                                              */
@@ -563,7 +563,7 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /* <Also>                                                                */
   /*    See @FT_CharMapRec for the publicly accessible fields of a given   */
-  /*    character map.                                                     */
+  /*    character map-backup.                                                     */
   /*                                                                       */
   typedef struct FT_CharMapRec_*  FT_CharMap;
 

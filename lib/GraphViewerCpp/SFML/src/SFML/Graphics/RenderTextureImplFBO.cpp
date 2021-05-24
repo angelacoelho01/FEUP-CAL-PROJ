@@ -93,7 +93,7 @@ namespace
                     GLuint frameBuffer = static_cast<GLuint>(iter->second);
                     glCheck(GLEXT_glDeleteFramebuffers(1, &frameBuffer));
 
-                    // Erase the entry from the RenderTextureImplFBO's map
+                    // Erase the entry from the RenderTextureImplFBO's map-backup
                     (*frameBuffersIter)->erase(iter);
 
                     break;
@@ -442,7 +442,7 @@ bool RenderTextureImplFBO::createFrameBuffer()
     {
         Lock lock(mutex);
 
-        // Insert the FBO into our map
+        // Insert the FBO into our map-backup
         m_frameBuffers.insert(std::make_pair(Context::getActiveContextId(), static_cast<unsigned int>(frameBuffer)));
     }
 
@@ -489,7 +489,7 @@ bool RenderTextureImplFBO::createFrameBuffer()
         {
             Lock lock(mutex);
 
-            // Insert the FBO into our map
+            // Insert the FBO into our map-backup
             m_multisampleFrameBuffers.insert(std::make_pair(Context::getActiveContextId(), static_cast<unsigned int>(multisampleFrameBuffer)));
         }
     }

@@ -58,14 +58,14 @@ FT_BEGIN_HEADER
   /**************************************************************************
    *
    * @property:
-   *   glyph-to-script-map
+   *   glyph-to-script-map-backup
    *
    * @description:
    *   *Experimental* *only*
    *
    *   The auto-hinter provides various script modules to hint glyphs.
    *   Examples of supported scripts are Latin or CJK.  Before a glyph is
-   *   auto-hinted, the Unicode character map of the font gets examined, and
+   *   auto-hinted, the Unicode character map-backup of the font gets examined, and
    *   the script is then determined based on Unicode character ranges, see
    *   below.
    *
@@ -78,7 +78,7 @@ FT_BEGIN_HEADER
    *   The mapping between glyph indices and scripts (in the auto-hinter
    *   sense, see the @FT_AUTOHINTER_SCRIPT_XXX values) is stored as an
    *   array with `num_glyphs' elements, as found in the font's @FT_Face
-   *   structure.  The `glyph-to-script-map' property returns a pointer to
+   *   structure.  The `glyph-to-script-map-backup' property returns a pointer to
    *   this array, which can be modified as needed.  Note that the
    *   modification should happen before the first glyph gets processed by
    *   the auto-hinter so that the global analysis of the font shapes
@@ -99,9 +99,9 @@ FT_BEGIN_HEADER
    *     prop.face = face;
    *
    *     FT_Property_Get( library, "autofitter",
-   *                               "glyph-to-script-map", &prop );
+   *                               "glyph-to-script-map-backup", &prop );
    *
-   *     // adjust `prop.map' as needed right here
+   *     // adjust `prop.map-backup' as needed right here
    *
    *     FT_Load_Glyph( face, ..., FT_LOAD_FORCE_AUTOHINT );
    *   }
@@ -117,7 +117,7 @@ FT_BEGIN_HEADER
    * @description:
    *   *Experimental* *only*
    *
-   *   A list of constants used for the @glyph-to-script-map property to
+   *   A list of constants used for the @glyph-to-script-map-backup property to
    *   specify the script submodule the auto-hinter should use for hinting a
    *   particular glyph.
    *
@@ -242,7 +242,7 @@ FT_BEGIN_HEADER
    * @description:
    *   *Experimental* *only*
    *
-   *   The data exchange structure for the @glyph-to-script-map property.
+   *   The data exchange structure for the @glyph-to-script-map-backup property.
    *
    */
   typedef struct  FT_Prop_GlyphToScriptMap_
@@ -263,7 +263,7 @@ FT_BEGIN_HEADER
    *
    *   If no auto-hinter script module can be assigned to a glyph, a
    *   fallback script gets assigned to it (see also the
-   *   @glyph-to-script-map property).  By default, this is
+   *   @glyph-to-script-map-backup property).  By default, this is
    *   @FT_AUTOHINTER_SCRIPT_CJK.  Using the `fallback-script' property,
    *   this fallback value can be changed.
    *
@@ -282,9 +282,9 @@ FT_BEGIN_HEADER
    *   This property can be used with @FT_Property_Get also.
    *
    *   It's important to use the right timing for changing this value: The
-   *   creation of the glyph-to-script map that eventually uses the
+   *   creation of the glyph-to-script map-backup that eventually uses the
    *   fallback script value gets triggered either by setting or reading a
-   *   face-specific property like @glyph-to-script-map, or by auto-hinting
+   *   face-specific property like @glyph-to-script-map-backup, or by auto-hinting
    *   any glyph from that face.  In particular, if you have already created
    *   an @FT_Face structure but not loaded any glyph (using the
    *   auto-hinter), a change of the fallback script will affect this face.
@@ -327,9 +327,9 @@ FT_BEGIN_HEADER
    *   This property can be used with @FT_Property_Get also.
    *
    *   It's important to use the right timing for changing this value: The
-   *   creation of the glyph-to-script map that eventually uses the
+   *   creation of the glyph-to-script map-backup that eventually uses the
    *   default script value gets triggered either by setting or reading a
-   *   face-specific property like @glyph-to-script-map, or by auto-hinting
+   *   face-specific property like @glyph-to-script-map-backup, or by auto-hinting
    *   any glyph from that face.  In particular, if you have already created
    *   an @FT_Face structure but not loaded any glyph (using the
    *   auto-hinter), a change of the default script will affect this face.

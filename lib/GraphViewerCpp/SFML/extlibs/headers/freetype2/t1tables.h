@@ -278,7 +278,7 @@ FT_BEGIN_HEADER
   /* maximum number of Multiple Masters axes, as defined in the spec */
 #define T1_MAX_MM_AXIS        4
 
-  /* maximum number of elements in a design map */
+  /* maximum number of elements in a design map-backup */
 #define T1_MAX_MM_MAP_POINTS  20
 
 

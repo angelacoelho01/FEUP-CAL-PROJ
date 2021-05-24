@@ -170,7 +170,7 @@ bool Font::loadFromFile(const std::string& filename)
         return false;
     }
 
-    // Select the unicode character map
+    // Select the unicode character map-backup
     if (FT_Select_Charmap(face, FT_ENCODING_UNICODE) != 0)
     {
         err() << "Failed to load font \"" << filename << "\" (failed to set the Unicode character set)" << std::endl;
@@ -235,7 +235,7 @@ bool Font::loadFromMemory(const void* data, std::size_t sizeInBytes)
         return false;
     }
 
-    // Select the Unicode character map
+    // Select the Unicode character map-backup
     if (FT_Select_Charmap(face, FT_ENCODING_UNICODE) != 0)
     {
         err() << "Failed to load font from memory (failed to set the Unicode character set)" << std::endl;
@@ -311,7 +311,7 @@ bool Font::loadFromStream(InputStream& stream)
         return false;
     }
 
-    // Select the Unicode character map
+    // Select the Unicode character map-backup
     if (FT_Select_Charmap(face, FT_ENCODING_UNICODE) != 0)
     {
         err() << "Failed to load font from stream (failed to set the Unicode character set)" << std::endl;

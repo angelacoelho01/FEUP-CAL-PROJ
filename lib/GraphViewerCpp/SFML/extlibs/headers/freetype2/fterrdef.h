@@ -187,7 +187,7 @@
   FT_ERRORDEF_( Name_Table_Missing,                          0x91,
                 "name table missing" )
   FT_ERRORDEF_( CMap_Table_Missing,                          0x92,
-                "character map (cmap) table missing" )
+                "character map-backup (cmap) table missing" )
   FT_ERRORDEF_( Hmtx_Table_Missing,                          0x93,
                 "horizontal metrics (hmtx) table missing" )
   FT_ERRORDEF_( Post_Table_Missing,                          0x94,
@@ -195,7 +195,7 @@
   FT_ERRORDEF_( Invalid_Horiz_Metrics,                       0x95,
                 "invalid horizontal metrics" )
   FT_ERRORDEF_( Invalid_CharMap_Format,                      0x96,
-                "invalid character map (cmap) format" )
+                "invalid character map-backup (cmap) format" )
   FT_ERRORDEF_( Invalid_PPem,                                0x97,
                 "invalid ppem value" )
   FT_ERRORDEF_( Invalid_Vert_Metrics,                        0x98,

@@ -649,8 +649,8 @@ private:
      * be updated by another thread at the same time.
      */
     std::mutex graphMutex;
-    std::unordered_map<id_t, Node*> nodes;   ///< @brief Nodes map.
-    std::unordered_map<id_t, Edge*> edges;   ///< @brief Edges map.
+    std::unordered_map<id_t, Node*> nodes;   ///< @brief Nodes map-backup.
+    std::unordered_map<id_t, Edge*> edges;   ///< @brief Edges map-backup.
 
     /**
      * @brief Main entry point for event processing.

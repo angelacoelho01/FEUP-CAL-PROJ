@@ -1,12 +1,16 @@
 #include "FilesReader.h"
+#include "../model/exception/FileException.h"
 
 #include <fstream>
+#include <sstream>
 
 std::vector<Van> fileReader::getVansFromFile() {
-    std::vector<Van> vans;
+    std::string path = "../resources/data/vans/fleet.txtt";
 
-    std::ifstream ifs("data/vans/fleet.txt");
-    if(!ifs.is_open()) return vans;
+    std::ifstream ifs(path);
+    if (!ifs.is_open()) throw FileNotFound(path);
+
+    std::vector<Van> vans;
 
     int N;
     ifs >> N;
@@ -22,10 +26,12 @@ std::vector<Van> fileReader::getVansFromFile() {
 }
 
 std::vector<Client> fileReader::getClientsFromFile() {
-    std::vector<Client> clients;
+    std::string path = "../resources/data/clients/clients.txt";
 
-    std::ifstream ifs("data/clients/clients.txt");
-    if(!ifs.is_open()) return clients;
+    std::ifstream ifs(path);
+    if (!ifs.is_open()) throw FileNotFound(path);
+
+    std::vector<Client> clients;
 
     int N;
     ifs >> N;
@@ -49,10 +55,14 @@ Client fileReader::findClientByNif(const std::vector<Client>& clients, const std
 }
 
 std::vector<Order> fileReader::getOrdersFromFile(const std::string& fileName, std::vector<Client> clients) {
-    std::vector<Order> orders;
+    std::stringstream ss;
+    ss << "../resources/data/orders/" << fileName;
+    std::string path = ss.str();
 
-    std::ifstream ifs("data/orders/" + fileName);
-    if(!ifs.is_open()) return orders;
+    std::ifstream ifs(path);
+    if (!ifs.is_open()) throw FileNotFound(path);
+
+    std::vector<Order> orders;
 
     int N;
     ifs >> N;

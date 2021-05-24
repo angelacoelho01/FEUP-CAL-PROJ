@@ -299,7 +299,7 @@ private:
 /// which defines where the contents of the source rectangle
 /// will be displayed on the render target (window or texture).
 ///
-/// The viewport allows to map the scene to a custom part
+/// The viewport allows to map-backup the scene to a custom part
 /// of the render target, and can be used for split-screen
 /// or for displaying a minimap, for example. If the source
 /// rectangle doesn't have the same size as the viewport, its

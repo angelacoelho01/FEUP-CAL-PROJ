@@ -52,7 +52,7 @@
 
 namespace
 {
-    // Mutex to protect ID generation and our context-RenderTarget-map
+    // Mutex to protect ID generation and our context-RenderTarget-map-backup
     sf::Mutex mutex;
 
     // Unique identifier, used for identifying RenderTargets when
@@ -391,7 +391,7 @@ void RenderTarget::draw(const VertexBuffer& vertexBuffer, std::size_t firstVerte
 ////////////////////////////////////////////////////////////
 bool RenderTarget::setActive(bool active)
 {
-    // Mark this RenderTarget as active or no longer active in the tracking map
+    // Mark this RenderTarget as active or no longer active in the tracking map-backup
     {
         sf::Lock lock(mutex);
 

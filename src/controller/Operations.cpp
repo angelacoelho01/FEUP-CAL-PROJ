@@ -8,14 +8,9 @@
 #include "../model/VanDeliveryPlanner.h"
 #include "FilesReader.h"
 
-#define RED "red"
-#define PINK "pink"
-#define GREEN "green"
-#define YELLOW "yellow"
-
 void operation::view() {
     Graph graph;
-    MapDrawer mapDrawer(2000, 2000);
+    MapDrawer mapDrawer(1644, 921);
     GraphLoader::loadGraph(BAKERY_ZONE, &graph);
     mapDrawer.drawMapFromGraph(&graph);
     getchar();
@@ -23,7 +18,7 @@ void operation::view() {
 
 void operation::preprocess(int start_node) {
     Graph graph;
-    MapDrawer mapDrawer(2000, 2000);
+    MapDrawer mapDrawer(1644, 921);
     GraphLoader::loadGraph(BAKERY_ZONE, &graph);
 
     Vertex* source = graph.findVertex(start_node);
@@ -41,7 +36,7 @@ void operation::preprocess(int start_node) {
 
 void operation::aStar(int start_node, int dest_node) {
     Graph graph;
-    MapDrawer mapDrawer(2000, 2000);
+    MapDrawer mapDrawer(1644, 921);
     GraphLoader::loadGraph(BAKERY_ZONE, &graph);
 
     Vertex* source = graph.findVertex(start_node);
@@ -62,11 +57,12 @@ void operation::aStar(int start_node, int dest_node) {
     graph.AStar(start_node, dest_node);
     std::vector<Edge> path = graph.AGetPathEdges(start_node, dest_node);
 
-    // Draw map from graph and highlight the shortest path between the two vertexes
+    // Draw map-backup from graph and highlight the shortest path between the two vertexes
     mapDrawer.drawMapFromGraph(&graph);
     for (const Edge& e: path) {
-        // mapDrawer.getGraphViewer()->setEdgeThickness(e.getId(), 10);
-        // mapDrawer.getGraphViewer()->setEdgeColor(e.getId(), RED);
+        GraphViewer::Edge &edge = mapDrawer.getGraphViewer()->getEdge(e.getId());
+        edge.setThickness(10);
+        edge.setColor(GraphViewer::BLUE);
     }
     getchar();
 }
@@ -79,7 +75,7 @@ void operation::orders(const std::string& file_name) {
     vans[0].setOrders(orders); // the van is responsible by all orders
 
     Graph graph;
-    MapDrawer mapDrawer(2000, 2000);
+    MapDrawer mapDrawer(1644, 921);
     GraphLoader::loadGraph(BAKERY_ZONE, &graph);
 
     int bakeryId = SILVIOS_BAKERY;
@@ -87,18 +83,22 @@ void operation::orders(const std::string& file_name) {
     graph.dijkstraShortestPath(bakeryId);
     planner.planVanDeliveryWithoutTimeWindow();
 
-    // Draw map from graph and highlight the Van path
+    // Draw map-backup from graph and highlight the Van path
     mapDrawer.drawMapFromGraph(&graph);
-    // mapDrawer.getGraphViewer()->setVertexColor(bakeryId, PINK);
+    GraphViewer::Node &bakery = mapDrawer.getGraphViewer()->getNode(bakeryId);
+    bakery.setColor(GraphViewer::PINK);
 
     for (const Order& order: planner.getOrders()) {
-        // mapDrawer.getGraphViewer()->setVertexColor(order.getAddress(), GREEN);
+        GraphViewer::Node &node = mapDrawer.getGraphViewer()->getNode(order.getAddress());
+        node.setColor(GraphViewer::GREEN);
     }
     for (const Edge& e: planner.getPath()) {
-        // mapDrawer.getGraphViewer()->setEdgeThickness(e.getId(), 10);
-        // mapDrawer.getGraphViewer()->setEdgeColor(e.getId(), YELLOW);
+        GraphViewer::Edge &edge = mapDrawer.getGraphViewer()->getEdge(e.getId());
+        edge.setThickness(10);
+        edge.setColor(GraphViewer::YELLOW);
     }
-    // mapDrawer.getGraphViewer()->rearrange();
+
+    mapDrawer.rearrange();
     getchar();
 }
 
@@ -110,7 +110,7 @@ void operation::ordersInTime(const std::string& file_name) {
     vans[0].setOrders(orders); // the van is responsible by all orders
 
     Graph graph;
-    MapDrawer mapDrawer(2000, 2000);
+    MapDrawer mapDrawer(1644, 921);
     GraphLoader::loadGraph(BAKERY_ZONE, &graph);
 
     int bakeryId = SILVIOS_BAKERY;
@@ -118,17 +118,21 @@ void operation::ordersInTime(const std::string& file_name) {
     graph.dijkstraShortestPath(bakeryId);
     planner.planVanDeliveryWithTimeWindow();
 
-    // Draw map from graph and highlight the Van path
+    // Draw map-backup from graph and highlight the Van path
     mapDrawer.drawMapFromGraph(&graph);
-    // mapDrawer.getGraphViewer()->setVertexColor(bakeryId, PINK);
+    GraphViewer::Node &bakery = mapDrawer.getGraphViewer()->getNode(bakeryId);
+    bakery.setColor(GraphViewer::PINK);
 
     for (const Order& order: planner.getOrders()) {
-        // mapDrawer.getGraphViewer()->setVertexColor(order.getAddress(), GREEN);
+        GraphViewer::Node &node = mapDrawer.getGraphViewer()->getNode(order.getAddress());
+        node.setColor(GraphViewer::GREEN);
     }
     for (const Edge& e: planner.getPath()) {
-        // mapDrawer.getGraphViewer()->setEdgeThickness(e.getId(), 10);
-        // mapDrawer.getGraphViewer()->setEdgeColor(e.getId(), YELLOW);
+        GraphViewer::Edge &edge = mapDrawer.getGraphViewer()->getEdge(e.getId());
+        edge.setThickness(10);
+        edge.setColor(GraphViewer::YELLOW);
     }
-    // mapDrawer.getGraphViewer()->rearrange();
+
+    mapDrawer.rearrange();
     getchar();
 }

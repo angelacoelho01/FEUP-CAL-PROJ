@@ -36,7 +36,7 @@ bool Graph::addEdge(int id, int origId, int destId) {
 
     // Suppose that all roads have 2 ways
     orig->addEdge(id, orig, dest, weightTime);
-    dest->addEdge(id+1, dest, orig, weightTime);
+    dest->addEdge(id + 1, dest, orig, weightTime);
     return true;
 }
 

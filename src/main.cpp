@@ -3,8 +3,10 @@
 #include <iostream>
 #include <algorithm>
 
-#include "map/MapLoader.h"
+#include "model/SilviosBakery.h"
+// #include "map-backup/MapLoader.h"
 #include "util/map/MapDrawer.h"
+#include "util/map/GraphLoader.h"
 
 #include <float.h>
 #include <sstream>
@@ -19,17 +21,26 @@ void printUsage() {
 }
 
 int main(int argc, char* argv[]) {
-
+    /*
     MapDrawer mapDrawer(1644, 921);
     mapDrawer.drawMapFromFile("Porto");
-    return 0;
+    */
+    /*
+    MapDrawer mapDrawer(1644, 921);
+    Graph graph;
+    GraphLoader::loadGraph(BAKERY_ZONE, &graph);
+    mapDrawer.drawMapFromGraph(&graph);
+    */
 
+    /*
     if (argc < 2) {
         printUsage();
         return 0;
     }
+    */
 
-    std::string operation = argv[1];
+    // std::string operation = argv[1];
+    std::string operation = "view";
     if (operation == "view") {
         operation::view();
 

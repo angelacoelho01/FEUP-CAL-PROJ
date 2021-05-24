@@ -18,7 +18,7 @@ add_library(feup-cal-proj
         src/model/order/Order.cpp src/model/order/Order.h
         src/model/exception/TimeException.cpp src/model/exception/TimeException.h
         src/model/client/Client.cpp src/model/client/Client.h
-        src/map/MapLoader.cpp src/map/MapLoader.h)
+        src/map-backup/MapLoader.cpp src/map-backup/MapLoader.h)
 
 add_executable(application
         src/main.cpp
@@ -26,9 +26,8 @@ add_executable(application
         src/model/order/Order.cpp src/model/exception/TimeException.cpp src/model/client/Client.cpp src/model/van/Van.cpp 
         src/graph/Edge.cpp src/graph/Graph.cpp src/graph/Vertex.cpp 
         src/model/VanDeliveryPlanner.cpp src/model/SilviosBakery.h 
-        src/controller/Operations.cpp src/controller/FilesReader.cpp 
-        src/util/map/MapLabel.h 
-        src/util/map/MapDrawer.cpp src/util/map/GraphLoader.cpp
-        src/map/MapLoader.cpp src/model/exception/FileException.cpp src/model/exception/FileException.h)
+        src/controller/Operations.cpp src/controller/FilesReader.cpp
+        src/util/map/GraphLoader.cpp src/util/map/MapDrawer.cpp src/util/map/MapLabel.h
+        src/model/exception/FileException.cpp src/model/exception/FileException.h)
 
 target_link_libraries(application graphviewer)

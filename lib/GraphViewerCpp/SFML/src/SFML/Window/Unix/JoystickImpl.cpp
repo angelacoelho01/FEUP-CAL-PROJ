@@ -152,7 +152,7 @@ namespace
                     {
                         if (std::strstr(action, "add"))
                         {
-                            // If not mapped before and it got added, map it now
+                            // If not mapped before and it got added, map-backup it now
                             const char* syspath = udev_device_get_syspath(udevDevice);
 
                             JoystickRecord record;
@@ -230,7 +230,7 @@ namespace
                     }
                 }
 
-                // If not mapped before, map it now
+                // If not mapped before, map-backup it now
                 if (record == joystickList.end())
                 {
                     JoystickRecord record;

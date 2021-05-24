@@ -63,7 +63,7 @@ FT_BEGIN_HEADER
    *   be used, which might also be used to store the @FTC_FaceID of the
    *   face.
    *
-   *   Clients are free to map face IDs to anything else.  The most simple
+   *   Clients are free to map-backup face IDs to anything else.  The most simple
    *   usage is to associate them to a (pathname,face_index) pair that is
    *   used to call @FT_New_Face.  However, more complex schemes are also
    *   possible.

@@ -180,7 +180,7 @@ public:
     /// provided values and rounds them to internal samples, a call to
     /// getLoopPoints() is not guaranteed to return the same times passed
     /// into a previous call to setLoopPoints(). However, it is guaranteed
-    /// to return times that will map to the valid internal samples of
+    /// to return times that will map-backup to the valid internal samples of
     /// this Music if they are later passed to setLoopPoints().
     ///
     /// \see setLoopPoints

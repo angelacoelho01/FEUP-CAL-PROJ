@@ -6,30 +6,28 @@
 
 #include <fstream>
 #include <sstream>
-#include <algorithm>
 #include <iostream>
 
 MapDrawer::MapDrawer(int width, int height) {
     this->_width = width;
     this->_height = height;
-    // this->_graphViewer = new GraphViewer(width, height);
 }
 
-MapDrawer::~MapDrawer() {
-    // delete this->_graphViewer;
-}
-/*
+MapDrawer::~MapDrawer() { }
+
 GraphViewer* MapDrawer::getGraphViewer() {
-    return this->_graphViewer;
+    return &this->_graphViewer;
 }
 
-void MapDrawer::resetGraphViewer() {
-    this->_graphViewer->closeWindow();
-    delete this->_graphViewer;
+void MapDrawer::rearrange() {
+    _graphViewer.closeWindow();
+    _graphViewer.setCenter(sf::Vector2f(_width, -_height));
+    _graphViewer.setScale(6.0);
 
-    this->_graphViewer = new GraphViewer(width, height, false);
+    _graphViewer.setZipEdges(true);
+    _graphViewer.createWindow(_width, _height);
+    _graphViewer.join();
 }
- */
 
 void MapDrawer::loadNodesFromFile(const std::string& location) {
     std::stringstream ss;
@@ -93,9 +91,8 @@ bool MapDrawer::drawMapFromFile(const std::string& location) {
 }
 
 bool MapDrawer::drawMapFromGraph(Graph* graph) {
-    // this->resetGraphViewer();
-    // _graphViewer->createWindow(_width, _height);
-    // _graphViewer->defineVertexSize(1);
+    _graphViewer.setCenter(sf::Vector2f(_width, -_height));
+    _graphViewer.setScale(6.0);
 
     double x_offset = 0, y_offset = 0;
     if (graph->getNumVertex() > 0) {
@@ -106,31 +103,36 @@ bool MapDrawer::drawMapFromGraph(Graph* graph) {
 
     // Add the graph vertexes with the corresponding color, according to it's label
     for (Vertex* v : graph->getVertexSet()) {
-        // _graphViewer->addNode(v->getId(), v->getPosition().getX() - x_offset, v->getPosition().getY() - y_offset);
+        double x = v->getPosition().getX() - x_offset;
+        double y = v->getPosition().getY() - y_offset;
+        GraphViewer::Node &node = _graphViewer.addNode(v->getId(), sf::Vector2f (x, y));
         if (!v->getLabels().empty()) {
-            // _graphViewer->setVertexColor(v->getId(), getLabelColor(v->getLabels().at(0)));
+            node.setColor(getLabelColor(v->getLabels().at(0)));
         }
     }
 
-    // Add the graph edges with the corresponding color, according to it's label
+    // Add the graph edges
     for (Vertex* v : graph->getVertexSet()) {
         for (const Edge &e : v->getAdj()) {
-            // _graphViewer->addEdge(e.getId(), v->getId(), e.getDest()->getId(), EdgeType::DIRECTED);
+            GraphViewer::Node &nodeOrig = _graphViewer.getNode(v->getId());
+            GraphViewer::Node &nodeDest = _graphViewer.getNode(e.getDest()->getId());
+            _graphViewer.addEdge(e.getId(), nodeOrig, nodeDest /*, GraphViewer::Edge::EdgeType::DIRECTED*/);
         }
     }
 
-    // _graphViewer->rearrange();
+    _graphViewer.setZipEdges(true);
+    _graphViewer.createWindow(_width, _height);
+    _graphViewer.join();
     return true;
 }
 
-std::string MapDrawer::getLabelColor(MapLabel label) {
-    /*
-    if (label == BAKERY) return PINK;
-    else if (label == DELIVERY) return GREEN;
-    else if (label == EDGE_PATH) return BLUE;
-    else if (label == VERTEX_PATH) return RED;
-    else if (label == DEFAULT) return BLACK;
-     */
+const sf::Color MapDrawer::getLabelColor(MapLabel label) {
 
-    return "";
+    if (label == BAKERY) return GraphViewer::PINK;
+    else if (label == DELIVERY) return GraphViewer::GREEN;
+    else if (label == EDGE_PATH) return GraphViewer::BLUE;
+    else if (label == VERTEX_PATH) return GraphViewer::ORANGE;
+    else if (label == DEFAULT) return GraphViewer::BLACK;
+
+    return GraphViewer::WHITE;
 }

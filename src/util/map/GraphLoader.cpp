@@ -13,7 +13,7 @@ bool GraphLoader::loadGraph(const std::string& location, Graph* graph) {
 
 bool GraphLoader::loadNodes(const std::string& location, Graph* graph) {
     std::stringstream ss;
-    ss << "resources/" << location << "/nodes_x_y.txt";
+    ss << "../resources/" << location << "/nodes_x_y.txt";
     std::string path = ss.str();
 
     std::ifstream ifs(path);
@@ -27,7 +27,6 @@ bool GraphLoader::loadNodes(const std::string& location, Graph* graph) {
 
     for(int i = 0; i < numNodes; i++) {
         ifs >> c >> id >> c >> x >> c >> y >> c;
-        // GraphViewer::Node &node = _gv.addNode(id, sf::Vector2f (x, y));
         graph->addVertex(id, x, y);
     }
 
@@ -37,11 +36,11 @@ bool GraphLoader::loadNodes(const std::string& location, Graph* graph) {
 
 bool GraphLoader::loadEdges(const std::string& location, Graph* graph) {
     std::stringstream ss;
-    ss << "resources/" << location << "/edges.txt";
+    ss << "../resources/" << location << "/edges.txt";
     std::string path = ss.str();
 
     std::ifstream ifs(path);
-    if (!ifs) throw FileNotFound(path);
+    if (!ifs.is_open()) throw FileNotFound(path);
 
     int numEdges, idOrig, idDest;
     char c;
@@ -50,8 +49,8 @@ bool GraphLoader::loadEdges(const std::string& location, Graph* graph) {
 
     for(int i = 0; i < numEdges; i++) {
         ifs >> c >> idOrig >> c >> idDest >> c;
-        // _gv.addEdge(i, _gv.getNode(idOrig), _gv.getNode(idDest));
-        graph->addEdge(i, idOrig, idDest);
+        // std::cout << "id edge : " << i << std::endl;
+        graph->addEdge(i * 2, idOrig, idDest);
     }
 
     ifs.close();

@@ -96,7 +96,7 @@ public:
     ////////////////////////////////////////////////////////////
     Vector2f  position;  ///< 2D position of the vertex
     Color     color;     ///< Color of the vertex
-    Vector2f  texCoords; ///< Coordinates of the texture's pixel to map to the vertex
+    Vector2f  texCoords; ///< Coordinates of the texture's pixel to map-backup to the vertex
 };
 
 } // namespace sf
