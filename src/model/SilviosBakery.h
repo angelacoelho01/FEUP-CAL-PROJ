@@ -1,8 +1,7 @@
 #ifndef SRC_SILVIOS_BAKERY_H
 #define SRC_SILVIOS_BAKERY_H
 
-// TODO: decide
-#define SILVIOS_BAKERY 1239645072 // node id
+#define SILVIOS_BAKERY 1634 // node id
 #define BAKERY_ZONE "Porto"
 
 #define MAX_ARRIVAL_TIME 30 // minutes
