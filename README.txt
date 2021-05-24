@@ -1,5 +1,13 @@
 - Bibliotecas utilizadas:
-    -> Graphviewer, utilizado para a visualização do mapa e dos grafos
+    -> Graphviewer, utilizado para a visualização do mapa e dos grafos.
+
+- Detalhes Importantes:
+    -> Projeto desenvolvido em Windows e utilizada a Toolchain MinGW.
+    -> Para que seja possível correr o programa através da linha de comandos é necessário verificar se os passos seguintes
+    já estão feitos:
+        1. Criar uma variável de ambiente, por exemplo, MinGW_Path com o caminho para a pasta em que este se encontra.
+        2. Adicionar à variável de ambiente PATH o caminho para a pasta bin do MinGW, ou seja, acrescentar a PATH o
+        seguinte: %MinGW_Path%\bin.
 
 - Instruções de utilização:
     1. Abrir a pasta do projeto como raiz no CLion.
