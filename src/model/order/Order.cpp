@@ -1,9 +1,9 @@
 #include "Order.h"
 
-Order::Order(std::string& address, Client& client, const int quantity, const Time preferredTime)
+Order::Order(int address, Client& client, const int quantity, const Time preferredTime)
                 : _address(address), _client(client), _quantity(quantity), _preferredHour(preferredTime) {}
 
-std::string Order::getAddress() const {
+int Order::getAddress() const {
     return this->_address;
 }
 
@@ -19,7 +19,7 @@ Time Order::getPreferredHour() const {
     return this->_preferredHour;
 }
 
-void Order::setAddress(const std::string& address) {
+void Order::setAddress(const int address) {
     this->_address = address;
 }
 
@@ -35,7 +35,11 @@ void Order::setPreferredHour(const Time preferredHour) {
     this->_preferredHour = preferredHour;
 }
 
+bool Order::operator<(const Order &order) const {
+    return this->_preferredHour < order.getPreferredHour();
+}
+
 std::ostream& operator<<(std::ostream& os, const Order& order) {
-    os << "(" << order.getClient().getIdNumber() << ") Address: " << order.getAddress() << " | Preferred Hour: " << order.getPreferredHour() << " | Quantity: " << order.getQuantity();
+    os << "(" << order.getClient().getNif() << ") Address: " << order.getAddress() << " | Preferred Hour: " << order.getPreferredHour() << " | Quantity: " << order.getQuantity();
     return os;
 }

@@ -4,17 +4,22 @@
 
 #include "../../util/Time.h"
 
+// Represents a client of the bakery: identified by his nif, name and phone number
 class Client {
 public:
-    Client( std::string& name, int phoneNumber, std::string& idNumber);
+    Client();
+    Client(std::string& nif, std::string& name, int phoneNumber);
+
+    std::string getNif() const;
     std::string getName() const;
     int getPhoneNumber() const;
-    std::string getIdNumber() const;
-    void changePhoneNumber(int phoneNumber);
+
+    void setName(std::string &name);
+    void setPhoneNumber(int phoneNumber);
 private:
+    std::string _nif;
     std::string _name;
     int _phoneNumber;
-    std::string _idNumber;
 };
 
 #endif // SRC_CLIENT_H
