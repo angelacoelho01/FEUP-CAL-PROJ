@@ -5,7 +5,7 @@
 #include <sstream>
 
 std::vector<Van> fileReader::getVansFromFile() {
-    std::string path = "../resources/data/vans/fleet.txtt";
+    std::string path = "../resources/data/vans/fleet.txt";
 
     std::ifstream ifs(path);
     if (!ifs.is_open()) throw FileNotFound(path);

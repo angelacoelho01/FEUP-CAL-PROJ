@@ -33,9 +33,11 @@ int main(int argc, char* argv[]) {
     */
 
     // to test purposes
-    // operation::view();
+    operation::view();
     // operation::preprocess(SILVIOS_BAKERY);
-    operation::aStar(SILVIOS_BAKERY, 15119);
+    // operation::aStar(SILVIOS_BAKERY, 262);
+    // operation::orders("orders_1.txt");
+    // operation::ordersInTime("orders_1.txt");
     return 0;
 
     if (argc < 2) {

@@ -19,11 +19,15 @@ GraphViewer* MapDrawer::getGraphViewer() {
     return &this->_graphViewer;
 }
 
-void MapDrawer::rearrange() {
-    _graphViewer.closeWindow();
-    _graphViewer.setCenter(sf::Vector2f(_width, -_height));
-    _graphViewer.setScale(6.0);
+void MapDrawer::lockGraphViewer() {
+    _graphViewer.lock();
+}
 
+void MapDrawer::unlockGraphViewer() {
+    _graphViewer.unlock();
+}
+
+void MapDrawer::drawGraphViewer() {
     _graphViewer.setZipEdges(true);
     _graphViewer.createWindow(_width, _height);
     _graphViewer.join();
@@ -90,7 +94,7 @@ bool MapDrawer::drawMapFromFile(const std::string& location) {
     return true;
 }
 
-bool MapDrawer::drawMapFromGraph(Graph* graph) {
+bool MapDrawer::loadMapFromGraph(Graph* graph) {
     _graphViewer.setCenter(sf::Vector2f(_width, -_height));
     _graphViewer.setScale(6.0);
 
@@ -116,13 +120,14 @@ bool MapDrawer::drawMapFromGraph(Graph* graph) {
         for (const Edge &e : v->getAdj()) {
             GraphViewer::Node &nodeOrig = _graphViewer.getNode(v->getId());
             GraphViewer::Node &nodeDest = _graphViewer.getNode(e.getDest()->getId());
-            _graphViewer.addEdge(e.getId(), nodeOrig, nodeDest /*, GraphViewer::Edge::EdgeType::DIRECTED*/);
+            _graphViewer.addEdge(e.getId(), nodeOrig, nodeDest , GraphViewer::Edge::EdgeType::DIRECTED);
         }
     }
-
+    /*
     _graphViewer.setZipEdges(true);
     _graphViewer.createWindow(_width, _height);
     _graphViewer.join();
+     */
     return true;
 }
 
@@ -135,4 +140,24 @@ const sf::Color MapDrawer::getLabelColor(MapLabel label) {
     else if (label == DEFAULT) return GraphViewer::BLACK;
 
     return GraphViewer::WHITE;
+}
+
+void MapDrawer::setNodeSize(int nodeId, float size) {
+    GraphViewer::Node &node = _graphViewer.getNode(nodeId);
+    node.setSize(size);
+}
+
+void MapDrawer::setNodeColor(int nodeId, const sf::Color &color) {
+    GraphViewer::Node &node = _graphViewer.getNode(nodeId);
+    node.setColor(color);
+}
+
+void MapDrawer::setEdgeThickness(int edgeId, float thickness) {
+    GraphViewer::Edge &edge = _graphViewer.getEdge(edgeId);
+    edge.setThickness(thickness);
+}
+
+void MapDrawer::setEdgeColor(int edgeId, const sf::Color &color) {
+    GraphViewer::Edge &edge = _graphViewer.getEdge(edgeId);
+    edge.setColor(color);
 }

@@ -12,7 +12,9 @@ void operation::view() {
     Graph graph;
     MapDrawer mapDrawer(1644, 921);
     GraphLoader::loadGraph(BAKERY_ZONE, &graph);
-    mapDrawer.drawMapFromGraph(&graph);
+
+    mapDrawer.loadMapFromGraph(&graph);
+    mapDrawer.drawGraphViewer();
     // getchar();
 }
 
@@ -30,7 +32,10 @@ void operation::preprocess(int start_node) {
     graph.DFSConnectivity(source);
     graph.removeUnvisitedVertices();
 
-    mapDrawer.drawMapFromGraph(&graph);
+    mapDrawer.loadMapFromGraph(&graph);
+    mapDrawer.setNodeSize(start_node, 50);
+    mapDrawer.setNodeColor(start_node, GraphViewer::CYAN);
+    mapDrawer.drawGraphViewer();
     // getchar();
 }
 
@@ -58,13 +63,19 @@ void operation::aStar(int start_node, int dest_node) {
     std::vector<Edge> path = graph.AGetPathEdges(start_node, dest_node);
 
     // Draw map-backup from graph and highlight the shortest path between the two vertexes
-    mapDrawer.drawMapFromGraph(&graph);
+    mapDrawer.loadMapFromGraph(&graph);
+    // highlight source vertex
+    mapDrawer.setNodeSize(start_node, 50);
+    mapDrawer.setNodeColor(start_node, GraphViewer::CYAN);
+    // highlight destination vertex
+    mapDrawer.setNodeSize(dest_node, 50);
+    mapDrawer.setNodeColor(dest_node, GraphViewer::CYAN);
+    // highlight path edges
     for (const Edge& e: path) {
-        GraphViewer::Edge &edge = mapDrawer.getGraphViewer()->getEdge(e.getId());
-        edge.setThickness(20);
-        edge.setColor(GraphViewer::YELLOW);
+        mapDrawer.setEdgeThickness(e.getId(), 20);
+        mapDrawer.setEdgeColor(e.getId(), GraphViewer::YELLOW);
     }
-    mapDrawer.rearrange();
+    mapDrawer.drawGraphViewer();
     // getchar();
 }
 
@@ -85,21 +96,21 @@ void operation::orders(const std::string& file_name) {
     planner.planVanDeliveryWithoutTimeWindow();
 
     // Draw map-backup from graph and highlight the Van path
-    mapDrawer.drawMapFromGraph(&graph);
-    GraphViewer::Node &bakery = mapDrawer.getGraphViewer()->getNode(bakeryId);
-    bakery.setColor(GraphViewer::PINK);
-
+    mapDrawer.loadMapFromGraph(&graph);
+    // highlight bakery location
+    mapDrawer.setNodeSize(bakeryId, 50);
+    mapDrawer.setNodeColor(bakeryId, GraphViewer::CYAN);
+    // highlight points of delivery
     for (const Order& order: planner.getOrders()) {
-        GraphViewer::Node &node = mapDrawer.getGraphViewer()->getNode(order.getAddress());
-        node.setColor(GraphViewer::GREEN);
+        mapDrawer.setNodeSize(order.getAddress(), 50);
+        mapDrawer.setNodeColor(order.getAddress(), GraphViewer::GREEN);
     }
+    // highlight path
     for (const Edge& e: planner.getPath()) {
-        GraphViewer::Edge &edge = mapDrawer.getGraphViewer()->getEdge(e.getId());
-        edge.setThickness(10);
-        edge.setColor(GraphViewer::YELLOW);
+        mapDrawer.setEdgeThickness(e.getId(), 20);
+        mapDrawer.setEdgeColor(e.getId(), GraphViewer::YELLOW);
     }
-
-    mapDrawer.rearrange();
+    mapDrawer.drawGraphViewer();
     // getchar();
 }
 
@@ -120,20 +131,20 @@ void operation::ordersInTime(const std::string& file_name) {
     planner.planVanDeliveryWithTimeWindow();
 
     // Draw map-backup from graph and highlight the Van path
-    mapDrawer.drawMapFromGraph(&graph);
-    GraphViewer::Node &bakery = mapDrawer.getGraphViewer()->getNode(bakeryId);
-    bakery.setColor(GraphViewer::PINK);
-
+    mapDrawer.loadMapFromGraph(&graph);
+    // highlight bakery location
+    mapDrawer.setNodeSize(bakeryId, 50);
+    mapDrawer.setNodeColor(bakeryId, GraphViewer::CYAN);
+    // highlight points of delivery
     for (const Order& order: planner.getOrders()) {
-        GraphViewer::Node &node = mapDrawer.getGraphViewer()->getNode(order.getAddress());
-        node.setColor(GraphViewer::GREEN);
+        mapDrawer.setNodeSize(order.getAddress(), 50);
+        mapDrawer.setNodeColor(order.getAddress(), GraphViewer::GREEN);
     }
+    // highlight path
     for (const Edge& e: planner.getPath()) {
-        GraphViewer::Edge &edge = mapDrawer.getGraphViewer()->getEdge(e.getId());
-        edge.setThickness(10);
-        edge.setColor(GraphViewer::YELLOW);
+        mapDrawer.setEdgeThickness(e.getId(), 20);
+        mapDrawer.setEdgeColor(e.getId(), GraphViewer::ORANGE);
     }
-
-    mapDrawer.rearrange();
+    mapDrawer.drawGraphViewer();
     // getchar();
 }
