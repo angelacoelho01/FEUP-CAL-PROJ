@@ -85,8 +85,8 @@ bool MapDrawer::drawMapFromFile(const std::string& location) {
 
     std::cout << "Number of nodes: " << _graphViewer.getNodes().size() << std::endl;
 
-    //_gv.setEnabledNodes(false); // Disable node drawing
-    //_gv.setEnabledEdgesText(false); // Disable edge text drawing
+    //_graphViewer.setEnabledNodes(false); // Disable node drawing
+    //_graphViewer.setEnabledEdgesText(false); // Disable edge text drawing
 
     _graphViewer.setZipEdges(true);
     _graphViewer.createWindow(_width, _height);
