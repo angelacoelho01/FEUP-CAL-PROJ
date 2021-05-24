@@ -3,6 +3,7 @@ project(feup-cal-proj)
 
 set(CMAKE_CXX_STANDARD 14)
 
+
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
@@ -21,7 +22,13 @@ add_library(feup-cal-proj
 
 add_executable(application
         src/main.cpp
-        src/model/order/Order.cpp src/model/exception/TimeException.cpp src/model/client/Client.cpp
+        src/util/Time.cpp src/util/MutablePriorityQueue.h  src/util/map/Position.cpp src/util/Utils.cpp
+        src/model/order/Order.cpp src/model/exception/TimeException.cpp src/model/client/Client.cpp src/model/van/Van.cpp 
+        src/graph/Edge.cpp src/graph/Graph.cpp src/graph/Vertex.cpp 
+        src/model/VanDeliveryPlanner.cpp src/model/SilviosBakery.h 
+        src/controller/Operations.cpp src/controller/FilesReader.cpp 
+        src/util/map/MapLabel.h 
+        src/util/map/MapDrawer.cpp src/util/map/MapLoader.cpp
         src/map/MapLoader.cpp src/model/exception/FileException.cpp src/model/exception/FileException.h)
 
 target_link_libraries(application graphviewer)

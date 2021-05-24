@@ -13,21 +13,22 @@
 
 class Order {
 public:
-    Order(std::string& address, Client& client, int quantity, Time preferredTime) ;
+    Order(int address, Client& client, int quantity, Time preferredTime) ;
 
-    std::string getAddress() const;
+    int getAddress() const;
     Client getClient() const;
     int getQuantity() const;
     Time getPreferredHour() const;
 
-    void setAddress(const std::string& address);
+    void setAddress(const int address);
     void setClient(const Client& client);
     void setQuantity(int quantity);
     void setPreferredHour(Time preferredTime);
 
+    bool operator<(const Order &order) const;
     friend std::ostream& operator<<(std::ostream& os, const Order& order);
 private:
-    std::string _address;
+    int _address; // node id
     Client _client;
     int _quantity; // number of breads
     Time _preferredHour;
