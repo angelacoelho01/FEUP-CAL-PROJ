@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
 
     MapLoader mapLoader(1644, 921);
     mapLoader.loadMap("Porto");
+    return 0;
 
     if (argc < 2) {
         printUsage();
