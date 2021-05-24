@@ -32,7 +32,10 @@ int main(int argc, char* argv[]) {
     mapDrawer.drawMapFromGraph(&graph);
     */
 
-    operation::preprocess(SILVIOS_BAKERY);
+    // to test purposes
+    // operation::view();
+    // operation::preprocess(SILVIOS_BAKERY);
+    operation::aStar(SILVIOS_BAKERY, 15119);
     return 0;
 
     if (argc < 2) {

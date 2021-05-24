@@ -61,9 +61,10 @@ void operation::aStar(int start_node, int dest_node) {
     mapDrawer.drawMapFromGraph(&graph);
     for (const Edge& e: path) {
         GraphViewer::Edge &edge = mapDrawer.getGraphViewer()->getEdge(e.getId());
-        edge.setThickness(10);
-        edge.setColor(GraphViewer::BLUE);
+        edge.setThickness(20);
+        edge.setColor(GraphViewer::YELLOW);
     }
+    mapDrawer.rearrange();
     // getchar();
 }
 
