@@ -6,6 +6,9 @@
 
 #include <vector>
 
+// Represents a Van available in the fleet of the bakery
+// A van as a specific capacity, driver, and time that speeds doing a delivery
+// A van is responsible by a set of orders (the van have sufficient capacity for them)
 class Van {
 public:
     Van(Van const &van);

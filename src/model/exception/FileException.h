@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 
+// Called when trying to open a file that is not found
 class FileNotFound : public std::logic_error {
 public:
     explicit FileNotFound(const std::string& file);

@@ -34,6 +34,8 @@ std::vector<Edge> VanDeliveryPlanner::getPath() const {
     return this->_path;
 }
 
+// Generate a strong connected component of the graph from the bakery
+// Removes orders that cannot be reached
 void VanDeliveryPlanner::preProcessEntryData() {
     // Pre Process Graph
     Vertex *start = _graph->findVertex(_bakery);
@@ -141,6 +143,7 @@ void VanDeliveryPlanner::planVanDeliveryWithoutTimeWindow() {
 
 // *********************** TIME WINDOW - BRUTE FORCE ***********************
 
+// The time that takes to do a specific path
 Time calculatePathTime(std::vector<Edge> path) {
     double seconds = 0;
     for (auto e : path) {
@@ -150,6 +153,9 @@ Time calculatePathTime(std::vector<Edge> path) {
     return Time(seconds);
 }
 
+// Tries to analyse all the possible combinations of the order to delivery every order
+// Excludes the paths here the van arrives after the limit time
+// Considers if the van arrives to earlie it has to wait for the client
 int VanDeliveryPlanner::calculateMinWaitPathInInterval(Order currentOrder, Time arrival, std::multiset<Order> remainingOrders, std::vector<Edge> &path) {
     if (currentOrder.getPreferredHour() + Time(0, MAX_ARRIVAL_TIME) < arrival)
         return INF_INT;

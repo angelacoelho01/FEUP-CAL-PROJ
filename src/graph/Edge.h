@@ -27,9 +27,9 @@ public:
     friend class Vertex;
 
 private:
-    int _id;
-    Vertex *_orig, *_dest;
-    double _weight;
+    int _id; // identifies a edge by his unique number
+    Vertex *_orig, *_dest; // a edge connects a start to a destination
+    double _weight; // time in seconds that takes to travel that edge, according to the van speed
 };
 
 #endif //SRC_EDGE_H

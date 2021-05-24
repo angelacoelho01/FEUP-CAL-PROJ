@@ -40,12 +40,14 @@ public:
     void reset();
     ~Graph();
 
+    // Test connectivity from a specific source
     void DFSConnectivity(Vertex* start);
+    // Remove the unvisited vertices and edges that end in those
     void removeUnvisitedVertices();
-
+    // Combined they generates a strong connected graph based on the start vertex
 private:
-    std::unordered_map<int, Vertex *> _vertexHashMap;
-    std::vector<Vertex *> _vertexSet;
+    std::unordered_map<int, Vertex *> _vertexHashMap; // to optimize vertex find
+    std::vector<Vertex *> _vertexSet; // the set of vertexes that composes the graph
 
     void DFSVisit(Vertex* v);
 };

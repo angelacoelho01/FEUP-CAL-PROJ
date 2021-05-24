@@ -6,13 +6,13 @@
 
 #include <set>
 
-// for later improvements the areas for which van is responsible by
+// For later improvements the areas for which van is responsible by
 // and the corresponding orders (according to their capacity) is defined before hand
+// ************  ************
 
-// here the given graph already is the area of that van, and the van includes all
+// Here the given graph already is the area of that van, and the van includes all
 // orders that she is responsible by
-// Consider that the van has the capacity for all orders in this area
-
+// Considering that the van has the capacity for all orders in this area
 class VanDeliveryPlanner {
 public:
     VanDeliveryPlanner(Graph *graph, int bakery, const Van& van);
@@ -42,6 +42,7 @@ private:
     std::multiset<Order> _orders; // the ordered orders that the van is responsible by, ordered by desired delivery time
     std::vector<Edge> _path; // represents the edges that the van must travel to delivery all orders
 
+    // Get the closets neighbor of a list from a certain vertex (comparing the euclidean distances between them)
     std::vector<Vertex*>::const_iterator getClosestVertex(Vertex* pivot, const std::vector<Vertex*>& list);
 };
 

@@ -11,6 +11,9 @@
 #include <string>
 #include <iostream>
 
+// Represents a order of the bakery
+// A order is done by a client, has a number of desired breads and preferred delivery time
+// A order is to be deliver in a specific point of the graph, represented by the corresponding node id (address)
 class Order {
 public:
     Order(int address, Client& client, int quantity, Time preferredTime) ;

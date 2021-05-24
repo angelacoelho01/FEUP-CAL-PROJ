@@ -17,18 +17,17 @@ public:
     std::vector<MapLabel> getLabels() const;
     std::vector<Edge> getAdj() const;
 
-    bool getVisited() const;
-    double getDistance() const;
+    bool getVisited() const; // DFS
+    double getDistance() const; // Dijkstra and A*
 
     void addLabel(MapLabel label);
     bool operator<(Vertex & vertex) const;
 
     friend class Graph;
-    friend class MutablePriorityQueue<Vertex>;
-
+    friend class MutablePriorityQueue<Vertex>; // Needed to implement the desired algorithms
 private:
-    int _id;
-    Position _pos;
+    int _id; // Identifies the vertex by a unique number
+    Position _pos; // x and y of this vertex
 
     std::vector<MapLabel> _labels;
     std::vector<Edge> _adj;
@@ -38,7 +37,7 @@ private:
     Vertex* _path = nullptr;
     Edge _pathEdge;
 
-    // A*
+    // --- A*, auxiliary variables
     double _gScore = 0;
     Vertex* _aPath = nullptr;
     Edge _aPathEdge;

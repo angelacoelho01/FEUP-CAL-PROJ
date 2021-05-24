@@ -4,6 +4,7 @@
 
 #include "../../util/Time.h"
 
+// Represents a client of the bakery: identified by his nif, name and phone number
 class Client {
 public:
     Client();

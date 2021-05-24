@@ -4,6 +4,7 @@
 #include <string>
 #include <ctime>
 
+// To easier manipulate time, access and modified by adding or reducing, even comparisons
 class Time {
 public:
     Time();

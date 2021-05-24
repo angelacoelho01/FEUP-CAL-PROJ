@@ -1,6 +1,7 @@
 #ifndef SRC_UTIL_POSITION_H
 #define SRC_UTIL_POSITION_H
 
+// Represents the coordinates of a point in the graph: (x, y)
 class Position {
 public:
     Position() = default;
