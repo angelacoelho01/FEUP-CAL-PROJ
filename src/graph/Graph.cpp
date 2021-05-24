@@ -68,12 +68,12 @@ void Graph::DFSConnectivity(Vertex* start) {
 }
 
 void Graph::removeUnvisitedVertices() {
-    std::unordered_set<Vertex*, VertexHash, VertexHash> removed;
+    std::unordered_set<Vertex*> removed;
 
     // Remove vertices
     std::vector<Vertex *>::iterator v_it;
     for (v_it = _vertexSet.begin(); v_it != _vertexSet.end(); v_it++) {
-        if (!((*v_it)->getVisited())) {
+        if (!((*v_it)->_visited)) {
             removed.insert(*v_it);
             _vertexHashMap.erase((*v_it)->getId());
             v_it = _vertexSet.erase(v_it);
@@ -84,10 +84,10 @@ void Graph::removeUnvisitedVertices() {
     // Remove edges
     std::vector<Edge>::iterator e_it;
     for (Vertex* v : _vertexSet) {
-        e_it = v->getAdj().begin();
-        for (; e_it != v->getAdj().end(); e_it++) {
-            if (removed.find((*e_it).getDest()) != removed.end()) {
-                e_it = v->getAdj().erase(e_it);
+        e_it = v->_adj.begin();
+        for (; e_it != v->_adj.end(); e_it++) {
+            if (removed.find((*e_it)._dest) != removed.end()) {
+                e_it = v->_adj.erase(e_it);
                 e_it--;
             }
         }

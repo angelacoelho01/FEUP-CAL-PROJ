@@ -32,15 +32,15 @@ int main(int argc, char* argv[]) {
     mapDrawer.drawMapFromGraph(&graph);
     */
 
-    /*
+    operation::preprocess(SILVIOS_BAKERY);
+    return 0;
+
     if (argc < 2) {
         printUsage();
         return 0;
     }
-    */
 
-    // std::string operation = argv[1];
-    std::string operation = "view";
+    std::string operation = argv[1];
     if (operation == "view") {
         operation::view();
 

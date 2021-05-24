@@ -13,7 +13,7 @@ void operation::view() {
     MapDrawer mapDrawer(1644, 921);
     GraphLoader::loadGraph(BAKERY_ZONE, &graph);
     mapDrawer.drawMapFromGraph(&graph);
-    getchar();
+    // getchar();
 }
 
 void operation::preprocess(int start_node) {
@@ -31,7 +31,7 @@ void operation::preprocess(int start_node) {
     graph.removeUnvisitedVertices();
 
     mapDrawer.drawMapFromGraph(&graph);
-    getchar();
+    // getchar();
 }
 
 void operation::aStar(int start_node, int dest_node) {
@@ -64,7 +64,7 @@ void operation::aStar(int start_node, int dest_node) {
         edge.setThickness(10);
         edge.setColor(GraphViewer::BLUE);
     }
-    getchar();
+    // getchar();
 }
 
 void operation::orders(const std::string& file_name) {
@@ -99,7 +99,7 @@ void operation::orders(const std::string& file_name) {
     }
 
     mapDrawer.rearrange();
-    getchar();
+    // getchar();
 }
 
 void operation::ordersInTime(const std::string& file_name) {
@@ -134,5 +134,5 @@ void operation::ordersInTime(const std::string& file_name) {
     }
 
     mapDrawer.rearrange();
-    getchar();
+    // getchar();
 }
