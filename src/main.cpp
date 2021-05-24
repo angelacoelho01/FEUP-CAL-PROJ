@@ -13,11 +13,11 @@
 
 void printUsage() {
     std::cout << "Usage:" << std::endl;
-    std::cout << "./silvios view" << std::endl;
-    std::cout << "./silvios preprocess <node_id>" << std::endl;
-    std::cout << "./silvios astar <node_id1> <node_id2>" << std::endl;
-    std::cout << "./silvios orders <file_name>" << std::endl;
-    std::cout << "./silvios orders intime <file_name>" << std::endl;
+    std::cout << "\tapplication.exe view" << std::endl;
+    std::cout << "\tapplication.exe preprocess <node_id>" << std::endl;
+    std::cout << "\tapplication.exe astar <node_id1> <node_id2>" << std::endl;
+    std::cout << "\tapplication.exe orders <file_name>" << std::endl;
+    std::cout << "\tapplication.exe orders intime <file_name>" << std::endl;
 }
 
 int main(int argc, char* argv[]) {
@@ -37,8 +37,8 @@ int main(int argc, char* argv[]) {
     // operation::preprocess(SILVIOS_BAKERY);
     // operation::aStar(SILVIOS_BAKERY, 262);
     //operation::orders("orders_1.txt");
-    operation::ordersInTime("orders_1.txt");
-    return 0;
+    //operation::ordersInTime("orders_1.txt");
+    //return 0;
 
     if (argc < 2) {
         printUsage();
