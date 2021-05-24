@@ -28,7 +28,7 @@ add_executable(application
         src/model/VanDeliveryPlanner.cpp src/model/SilviosBakery.h 
         src/controller/Operations.cpp src/controller/FilesReader.cpp 
         src/util/map/MapLabel.h 
-        src/util/map/MapDrawer.cpp src/util/map/MapLoader.cpp
+        src/util/map/MapDrawer.cpp src/util/map/GraphLoader.cpp
         src/map/MapLoader.cpp src/model/exception/FileException.cpp src/model/exception/FileException.h)
 
 target_link_libraries(application graphviewer)

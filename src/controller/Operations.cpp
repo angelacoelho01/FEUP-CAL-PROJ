@@ -1,6 +1,6 @@
 #include "Operations.h"
 
-#include "../util/map/MapLoader.h"
+#include "../util/map/GraphLoader.h"
 #include "../util/map/MapDrawer.h"
 #include "../graph/Graph.h"
 #include "../model/SilviosBakery.h"

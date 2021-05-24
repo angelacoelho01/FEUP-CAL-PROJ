@@ -4,6 +4,7 @@
 #include <algorithm>
 
 #include "map/MapLoader.h"
+#include "util/map/MapDrawer.h"
 
 #include <float.h>
 #include <sstream>
@@ -19,8 +20,8 @@ void printUsage() {
 
 int main(int argc, char* argv[]) {
 
-    MapLoader mapLoader(1644, 921);
-    mapLoader.loadMap("Porto");
+    MapDrawer mapDrawer(1644, 921);
+    mapDrawer.drawMapFromFile("Porto");
     return 0;
 
     if (argc < 2) {

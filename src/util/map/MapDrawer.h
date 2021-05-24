@@ -4,6 +4,7 @@
 #include "MapLabel.h"
 
 #include <iostream>
+#include <graphviewer.h>
 
 class Graph;
 class VanDeliveryPlanner;
@@ -15,12 +16,15 @@ public:
 
     // GraphViewer* getGraphViewer();
 
+    bool drawMapFromFile(const std::string& location);
     bool drawMapFromGraph(Graph* graph);
     static std::string getLabelColor(MapLabel label);
 private:
     int _width, _height;
-    // GraphViewer* _graphViewer;
+    GraphViewer _graphViewer;
 
+    void loadNodesFromFile(const std::string& location);
+    void loadEdgesFromFile(const std::string& location);
     void resetGraphViewer();
 };
 

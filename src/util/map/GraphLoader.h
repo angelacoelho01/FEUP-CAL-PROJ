@@ -9,7 +9,7 @@
 class GraphLoader {
 public:
     static bool loadGraph(const std::string& location, Graph* graph);
-    static bool loadVertices(const std::string& location, Graph* graph);
+    static bool loadNodes(const std::string& location, Graph* graph);
     static bool loadEdges(const std::string& location, Graph* graph);
     // static bool loadTags(const std::string& location, Graph* graph);
 private:
