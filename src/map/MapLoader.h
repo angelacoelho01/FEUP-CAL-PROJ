@@ -6,10 +6,6 @@
 #include <string>
 #include <graphviewer.h>
 
-
-#include "../graph/Node.h"
-#include "../graph/Edge.h"
-
 class MapLoader {
 public:
     MapLoader(int width, int height);

@@ -3,6 +3,9 @@ project(feup-cal-proj)
 
 set(CMAKE_CXX_STANDARD 14)
 
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 # Build GraphViewerCpp
 set(GRAPHVIEWERCPP_PATH lib/GraphViewerCpp)
 add_subdirectory(${GRAPHVIEWERCPP_PATH})
@@ -14,15 +17,11 @@ add_library(feup-cal-proj
         src/model/order/Order.cpp src/model/order/Order.h
         src/model/exception/TimeException.cpp src/model/exception/TimeException.h
         src/model/client/Client.cpp src/model/client/Client.h
-        src/map/MapLoader.cpp src/map/MapLoader.h
-        src/graph/Node.cpp src/graph/Node.h
-        src/graph/Graph.cpp src/graph/Graph.h
-        src/graph/Edge.cpp src/graph/Edge.h)
+        src/map/MapLoader.cpp src/map/MapLoader.h)
 
 add_executable(application
         src/main.cpp
         src/model/order/Order.cpp src/model/exception/TimeException.cpp src/model/client/Client.cpp
-        src/map/MapLoader.cpp
-        src/graph/Node.cpp src/graph/Edge.cpp src/graph/Graph.cpp)
+        src/map/MapLoader.cpp src/model/exception/FileException.cpp src/model/exception/FileException.h)
 
 target_link_libraries(application graphviewer)
